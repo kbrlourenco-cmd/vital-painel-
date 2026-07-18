@@ -6,23 +6,70 @@
 <style>
  body{margin:0;background:#F5F5F2;color:#1B1B18;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased;}
  .wrap{max-width:520px;margin:0 auto;padding:0 14px 40px;}
- header{background:#132A44;color:#fff;margin:0 -14px 16px;padding:20px 18px;}
+ header{background:#132A44;color:#fff;margin:0 -14px 14px;padding:20px 18px;}
  header h1{margin:0;font-size:19px;font-weight:600;}
  header p{margin:4px 0 0;font-size:13px;color:#AEC2D8;}
- .hero{border-radius:14px;padding:16px 18px;margin-bottom:18px;}
- .hero .k{font-size:12px;} .hero .v{font-size:24px;font-weight:600;margin:2px 0 0;}
+ .tabs{display:inline-flex;background:#EDECE7;border-radius:9px;padding:3px;margin:6px 0 16px;}
+ .tab{border:none;background:transparent;font:inherit;font-size:14px;font-weight:600;color:#6E6E68;padding:8px 20px;border-radius:6px;cursor:pointer;}
+ .tab.on{background:#fff;color:#1B1B18;}
+ .sect{margin:18px 0 9px;font-size:14px;font-weight:600;}
+ .hero{border-radius:14px;padding:16px 18px;}
+ .hero .k{font-size:12px;} .hero .v{font-size:23px;font-weight:600;margin:2px 0 0;}
+ .hero .d{font-size:13px;margin:6px 0 0;line-height:1.5;}
  .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
  .c{background:#fff;border:1px solid #E7E6E1;border-radius:11px;padding:12px 13px;}
- .c .k{margin:0;font-size:12px;color:#6E6E68;}
- .c .v{margin:4px 0 0;font-size:19px;font-weight:600;}
+ .c .k{margin:0;font-size:12px;color:#6E6E68;} .c .v{margin:4px 0 0;font-size:18px;font-weight:600;}
  .c .s{margin:2px 0 0;font-size:11px;color:#6E6E68;}
+ .box{background:#fff;border:1px solid #E7E6E1;border-radius:11px;padding:6px 14px;}
+ .row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #EFEEE9;}
+ .row:last-child{border-bottom:none;}
+ .rk{font-size:13px;color:#6E6E68;} .rv{font-size:13px;font-weight:600;}
+ .goal{background:#132A44;color:#fff;border-radius:12px;padding:14px 16px;}
+ .goal .k{font-size:12px;color:#AEC2D8;} .goal .v{font-size:18px;font-weight:600;margin:3px 0 0;}
+ .goal .s{font-size:12px;color:#9FD3A6;margin:3px 0 0;}
  .foot{text-align:center;font-size:11px;color:#6E6E68;margin-top:22px;line-height:1.6;}
+ .hide{display:none;}
 </style></head><body><div class="wrap">
-<header><h1>Meu Painel de Saude</h1><p>Kleber Lourenco &middot; 18/07/2026</p></header>
-<div class="hero" style="background:#FBE3E0;">
-  <div class="k" style="color:#C0392B;">Prontidao de hoje</div>
-  <div class="v" style="color:#791F1F;">20/100 &middot; Dia de descanso</div>
+<header><h1>Meu Painel</h1><p>Kleber Lourenco &middot; 18/07/2026</p></header>
+
+<div class="tabs">
+  <button class="tab on" data-t="hoje">Hoje</button>
+  <button class="tab" data-t="corrida">Corrida</button>
 </div>
-<div class="grid"><div class="c"><p class="k">Sono (nota)</p><p class="v">36</p><p class="s">de 0 a 100</p></div><div class="c"><p class="k">Horas de sono</p><p class="v">3h13</p><p class="s"></p></div><div class="c"><p class="k">Equilibrio do coracao</p><p class="v">32</p><p class="s">estavel = bom</p></div><div class="c"><p class="k">FC em repouso</p><p class="v">64 bpm</p><p class="s">media 7 dias: 61</p></div><div class="c"><p class="k">Bateria do corpo</p><p class="v">34%</p><p class="s"></p></div><div class="c"><p class="k">Esforco acumulado</p><p class="v">524</p><p class="s"></p></div></div>
-<div class="foot">Atualizado automaticamente em 18/07 as 12:41</div>
-</div></body></html>
+
+<section data-p="hoje">
+  <div class="hero" style="background:#FBE3E0;">
+    <div class="k" style="color:#C0392B;">Disposicao de hoje</div>
+    <div class="v" style="color:#791F1F;">20/100 &middot; Descanso</div>
+    <div class="d" style="color:#791F1F;">O corpo pede descanso. Nada de treino forte hoje.</div>
+  </div>
+  <div class="sect">Sinais do corpo</div>
+  <div class="grid"><div class="c"><p class="k">Sono (nota)</p><p class="v">36</p><p class="s">3h13 dormidas</p></div><div class="c"><p class="k">Equilibrio do coracao</p><p class="v">32</p><p class="s">estavel = bom</p></div><div class="c"><p class="k">FC em repouso</p><p class="v">64 bpm</p><p class="s">media 7d: 61</p></div><div class="c"><p class="k">Bateria do corpo</p><p class="v">17%</p><p class="s"></p></div></div>
+</section>
+
+<section data-p="corrida" class="hide">
+  <div class="goal">
+    <div class="k">Proximo objetivo</div>
+    <div class="v">Meia maratona - dezembro 2026</div>
+    <div class="s">Novo PR nos 5K: 26:28 (09/07)!</div>
+  </div>
+  <div class="sect">Proximo treino</div>
+  <div class="box"><div class="row"><span class="rk">Agenda (seg/qua/sab)</span><span class="rv">Hoje 18/07 - corrida</span></div></div>
+  <div class="sect">Previsao de tempo (Garmin)</div>
+  <div class="grid"><div class="c"><p class="k">5 km</p><p class="v">24:22</p><p class="s"></p></div><div class="c"><p class="k">10 km</p><p class="v">53:15</p><p class="s"></p></div><div class="c"><p class="k">Meia</p><p class="v">2:01:12</p><p class="s"></p></div><div class="c"><p class="k">Maratona</p><p class="v">4:29:51</p><p class="s"></p></div></div>
+  <div class="sect">Ultimas corridas</div>
+  <div class="box"><div class="row"><span class="rk">18/07 &middot; 8,0 km</span><span class="rv">5:41/km &middot; 162 bpm</span></div><div class="row"><span class="rk">15/07 &middot; 6,0 km</span><span class="rv">5:38/km &middot; 158 bpm</span></div><div class="row"><span class="rk">13/07 &middot; 7,7 km</span><span class="rv">6:56/km &middot; 149 bpm</span></div></div>
+  <div class="sect">Recordes</div>
+  <div class="box"><div class="row"><span class="rk">5 km</span><span class="rv">26:28</span></div><div class="row"><span class="rk">1 km</span><span class="rv">5:00</span></div><div class="row"><span class="rk">1 milha</span><span class="rv">8:03</span></div></div>
+</section>
+
+<div class="foot">Atualizado automaticamente em 18/07 as 17:45</div>
+</div>
+<script>
+ var tabs=document.querySelectorAll('.tab'),ps=document.querySelectorAll('[data-p]');
+ tabs.forEach(function(t){t.onclick=function(){
+   ps.forEach(function(p){p.classList.toggle('hide',p.getAttribute('data-p')!==t.getAttribute('data-t'));});
+   tabs.forEach(function(x){x.classList.toggle('on',x===t);});
+ };});
+</script>
+</body></html>
