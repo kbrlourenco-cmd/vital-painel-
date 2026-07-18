@@ -1,144 +1,28 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
+<html lang="pt-BR"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#132A44">
-<title>Meu Painel — Kleber</title>
+<title>Meu Painel - Kleber</title>
 <style>
-  :root{
-    --navy:#132A44; --bg:#F5F5F2; --card:#FFFFFF; --line:#E7E6E1;
-    --tp:#1B1B18; --ts:#6E6E68;
-    --green:#4E7D1B; --greenbg:#E8F0DA;
-    --amber:#B0710F; --amberbg2:#FBF0D9;
-    --red:#C0392B; --redbg:#FBE3E0;
-    --blue:#2F70B7; --bluebg:#E3EDF8;
-  }
-  *{box-sizing:border-box;}
-  body{margin:0;background:var(--bg);color:var(--tp);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    -webkit-font-smoothing:antialiased;}
-  .wrap{max-width:520px;margin:0 auto;padding:0 14px 40px;}
-  header{background:var(--navy);color:#fff;margin:0 -14px 16px;padding:20px 18px 18px;}
-  header h1{margin:0;font-size:19px;font-weight:600;}
-  header p{margin:4px 0 0;font-size:13px;color:#AEC2D8;}
-  .tabs{display:inline-flex;background:#EDECE7;border-radius:9px;padding:3px;margin:16px 0 18px;}
-  .tab{border:none;background:transparent;font:inherit;font-size:14px;font-weight:600;color:var(--ts);
-    padding:8px 20px;border-radius:6px;cursor:pointer;}
-  .tab.on{background:#fff;color:var(--tp);box-shadow:0 1px 2px rgba(0,0,0,.06);}
-  .sect{margin:0 0 9px;font-size:14px;font-weight:600;}
-  .hero{border-radius:14px;padding:16px 18px;margin-bottom:18px;}
-  .hero .k{font-size:12px;} .hero .v{font-size:22px;font-weight:600;margin:2px 0 0;}
-  .hero .d{font-size:13px;margin:5px 0 0;}
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;}
-  .c{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:12px 13px;}
-  .c .k{margin:0;font-size:12px;color:var(--ts);}
-  .c .v{margin:4px 0 0;font-size:19px;font-weight:600;}
-  .c .s{margin:2px 0 0;font-size:11px;color:var(--ts);}
-  .bar{display:flex;height:24px;border-radius:7px;overflow:hidden;margin:2px 0 9px;}
-  .leg{display:flex;flex-wrap:wrap;gap:12px;font-size:11px;color:var(--ts);margin-bottom:18px;}
-  .leg span{display:flex;align-items:center;gap:5px;}
-  .dot{width:9px;height:9px;border-radius:2px;display:inline-block;}
-  .note{background:var(--bluebg);color:#0C447C;border-radius:12px;padding:13px 15px;font-size:13px;line-height:1.55;}
-  .foot{text-align:center;font-size:11px;color:var(--ts);margin-top:22px;line-height:1.6;}
-  .good{color:var(--green);} .warn{color:var(--amber);} .bad{color:var(--red);}
-  .hide{display:none;}
-</style>
-</head>
-<body>
-<div class="wrap">
-  <header>
-    <h1>Meu Painel de Saúde e Treino</h1>
-    <p>Kleber Lourenço · leitura de 06/07/2026</p>
-  </header>
-
-  <div class="tabs">
-    <button class="tab on" data-t="saude">Saúde</button>
-    <button class="tab" data-t="exercicio">Exercício</button>
-  </div>
-
-  <!-- SAÚDE -->
-  <section data-p="saude">
-    <div class="hero" style="background:var(--amberbg2);">
-      <div class="k warn">Prontidão de hoje</div>
-      <div class="v" style="color:#5A3A06;">37/100 — subindo</div>
-      <div class="d" style="color:#7A5210;">Amarelo, mas o corpo se recuperou forte da véspera.</div>
-    </div>
-
-    <div class="sect">A virada de ontem pra hoje</div>
-    <div class="grid">
-      <div class="c" style="background:var(--greenbg);border-color:#D4E3BE;"><p class="k">Bateria do corpo</p><p class="v good">5% → 56%</p></div>
-      <div class="c" style="background:var(--greenbg);border-color:#D4E3BE;"><p class="k">FC em repouso</p><p class="v good">72 → 63 bpm</p></div>
-      <div class="c" style="background:var(--greenbg);border-color:#D4E3BE;"><p class="k">Coração à noite</p><p class="v good">17 → 32</p></div>
-      <div class="c" style="background:var(--greenbg);border-color:#D4E3BE;"><p class="k">Sono</p><p class="v good">1h35 → 7h37</p></div>
-    </div>
-
-    <div class="sect">Sinais de hoje</div>
-    <div class="grid">
-      <div class="c"><p class="k">Sono</p><p class="v good">7h37</p><p class="s">qualidade razoável</p></div>
-      <div class="c"><p class="k">Equilíbrio do coração</p><p class="v good">32 ms</p><p class="s">normalizou à noite</p></div>
-      <div class="c"><p class="k">FC em repouso</p><p class="v">63 bpm</p><p class="s">média 7 dias: 61</p></div>
-      <div class="c"><p class="k">Bateria do corpo</p><p class="v">56%</p><p class="s">recarregou bem</p></div>
-      <div class="c"><p class="k">Estresse no sono</p><p class="v good">22</p><p class="s">tranquilo (era 76)</p></div>
-      <div class="c"><p class="k">Oxigênio no sangue</p><p class="v">96%</p><p class="s">ok</p></div>
-    </div>
-
-    <div class="sect">Como foi a noite (7h52 na cama)</div>
-    <div class="bar">
-      <div style="width:14.8%;background:#185FA5;"></div>
-      <div style="width:73.3%;background:#85B7EB;"></div>
-      <div style="width:8.7%;background:#534AB7;"></div>
-      <div style="width:3.2%;background:#B4B2A9;"></div>
-    </div>
-    <div class="leg">
-      <span><i class="dot" style="background:#185FA5;"></i>Profundo 70min</span>
-      <span><i class="dot" style="background:#85B7EB;"></i>Leve 5h46</span>
-      <span><i class="dot" style="background:#534AB7;"></i>REM 41min</span>
-      <span><i class="dot" style="background:#B4B2A9;"></i>Acordado 15min</span>
-    </div>
-
-    <div class="note">O sono e o descanso fizeram efeito: quase tudo voltou ao normal numa noite. A nota está em 37 só porque o histórico das noites ruins ainda pesa.</div>
-  </section>
-
-  <!-- EXERCÍCIO -->
-  <section data-p="exercicio" class="hide">
-    <div class="hero" style="background:var(--greenbg);">
-      <div class="k good">Sua forma está subindo</div>
-      <div class="v" style="color:#2E4A0F;">5 km em 24:27</div>
-      <div class="d" style="color:#3E5D18;">Motor aeróbico subiu pra 46. Meta real de prova: ~5:10/km.</div>
-    </div>
-
-    <div class="sect">Previsões de prova (Garmin)</div>
-    <div class="grid">
-      <div class="c"><p class="k">5 km</p><p class="v good">24:27</p></div>
-      <div class="c"><p class="k">10 km</p><p class="v">53:50</p></div>
-      <div class="c"><p class="k">Meia (21 km)</p><p class="v">2:04:18</p></div>
-      <div class="c"><p class="k">Motor aeróbico</p><p class="v good">46,3</p></div>
-    </div>
-
-    <div class="sect">Frescor e carga</div>
-    <div class="grid">
-      <div class="c"><p class="k">Esforço recente vs habitual</p><p class="v good">0,7</p><p class="s">perna descansando</p></div>
-      <div class="c"><p class="k">Recuperação</p><p class="v good">liberada</p><p class="s">pronto pra treino leve</p></div>
-    </div>
-
-    <div class="note" style="background:var(--greenbg);color:#2E4A0F;">Menos gordura + mais músculo na perna (última nutri) = melhor relação força/peso. Tudo empurrando pro sub-25.</div>
-  </section>
-
-  <div class="foot">
-    Foto do dia 06/07/2026 — os números não se atualizam sozinhos ainda.<br>
-    Pra virar painel diário automático, falta ligar o robô na nuvem.
-  </div>
+ body{margin:0;background:#F5F5F2;color:#1B1B18;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased;}
+ .wrap{max-width:520px;margin:0 auto;padding:0 14px 40px;}
+ header{background:#132A44;color:#fff;margin:0 -14px 16px;padding:20px 18px;}
+ header h1{margin:0;font-size:19px;font-weight:600;}
+ header p{margin:4px 0 0;font-size:13px;color:#AEC2D8;}
+ .hero{border-radius:14px;padding:16px 18px;margin-bottom:18px;}
+ .hero .k{font-size:12px;} .hero .v{font-size:24px;font-weight:600;margin:2px 0 0;}
+ .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+ .c{background:#fff;border:1px solid #E7E6E1;border-radius:11px;padding:12px 13px;}
+ .c .k{margin:0;font-size:12px;color:#6E6E68;}
+ .c .v{margin:4px 0 0;font-size:19px;font-weight:600;}
+ .c .s{margin:2px 0 0;font-size:11px;color:#6E6E68;}
+ .foot{text-align:center;font-size:11px;color:#6E6E68;margin-top:22px;line-height:1.6;}
+</style></head><body><div class="wrap">
+<header><h1>Meu Painel de Saude</h1><p>Kleber Lourenco &middot; 17/07/2026</p></header>
+<div class="hero" style="background:#E8F0DA;">
+  <div class="k" style="color:#4E7D1B;">Prontidao de hoje</div>
+  <div class="v" style="color:#2E4A0F;">69/100 &middot; Pode treinar</div>
 </div>
-
-<script>
-  var tabs=document.querySelectorAll('.tab');
-  var panels=document.querySelectorAll('[data-p]');
-  function go(name){
-    panels.forEach(function(p){p.classList.toggle('hide',p.getAttribute('data-p')!==name);});
-    tabs.forEach(function(t){t.classList.toggle('on',t.getAttribute('data-t')===name);});
-  }
-  tabs.forEach(function(t){t.addEventListener('click',function(){go(t.getAttribute('data-t'));});});
-</script>
-</body>
-</html>
+<div class="grid"><div class="c"><p class="k">Sono (nota)</p><p class="v">71</p><p class="s">de 0 a 100</p></div><div class="c"><p class="k">Horas de sono</p><p class="v">8h28</p><p class="s"></p></div><div class="c"><p class="k">Equilibrio do coracao</p><p class="v">33</p><p class="s">estavel = bom</p></div><div class="c"><p class="k">FC em repouso</p><p class="v">61 bpm</p><p class="s">media 7 dias: 60</p></div><div class="c"><p class="k">Bateria do corpo</p><p class="v">46%</p><p class="s"></p></div><div class="c"><p class="k">Esforco acumulado</p><p class="v">407</p><p class="s"></p></div></div>
+<div class="foot">Atualizado automaticamente em 17/07 as 21:37</div>
+</div></body></html>
