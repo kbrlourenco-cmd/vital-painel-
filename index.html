@@ -14,7 +14,7 @@
  .tab.on{background:#fff;color:#1B1B18;}
  .sect{margin:18px 0 9px;font-size:14px;font-weight:600;}
  .hero{border-radius:14px;padding:16px 18px;}
- .hero .k{font-size:12px;} .hero .v{font-size:23px;font-weight:600;margin:2px 0 0;}
+ .hero .k{font-size:12px;} .hero .v{font-size:20px;font-weight:600;margin:2px 0 0;}
  .hero .d{font-size:13px;margin:6px 0 0;line-height:1.5;}
  .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
  .c{background:#fff;border:1px solid #E7E6E1;border-radius:11px;padding:12px 13px;}
@@ -24,46 +24,60 @@
  .row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #EFEEE9;}
  .row:last-child{border-bottom:none;}
  .rk{font-size:13px;color:#6E6E68;} .rv{font-size:13px;font-weight:600;}
+ .row3{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #EFEEE9;font-size:13px;}
+ .row3:last-child{border-bottom:none;}
+ .row3 span{flex:1;} .row3 span:first-child{flex:0 0 46px;color:#6E6E68;}
+ .row3 span:nth-child(2){font-weight:600;text-align:center;} .row3 span:last-child{text-align:right;color:#6E6E68;}
  .goal{background:#132A44;color:#fff;border-radius:12px;padding:14px 16px;}
  .goal .k{font-size:12px;color:#AEC2D8;} .goal .v{font-size:18px;font-weight:600;margin:3px 0 0;}
  .goal .s{font-size:12px;color:#9FD3A6;margin:3px 0 0;}
  .foot{text-align:center;font-size:11px;color:#6E6E68;margin-top:22px;line-height:1.6;}
  .hide{display:none;}
 </style></head><body><div class="wrap">
-<header><h1>Meu Painel</h1><p>Kleber Lourenco &middot; 18/07/2026</p></header>
+<header><h1>Meu Painel</h1><p>Kleber Lourenco &middot; 19/07/2026</p></header>
 
 <div class="tabs">
-  <button class="tab on" data-t="hoje">Hoje</button>
-  <button class="tab" data-t="corrida">Corrida</button>
+  <button class="tab on" data-t="manha">Manha</button>
+  <button class="tab" data-t="pos">Pos-treino</button>
 </div>
 
-<section data-p="hoje">
-  <div class="hero" style="background:#FBE3E0;">
-    <div class="k" style="color:#C0392B;">Disposicao de hoje</div>
-    <div class="v" style="color:#791F1F;">20/100 &middot; Descanso</div>
-    <div class="d" style="color:#791F1F;">O corpo pede descanso. Nada de treino forte hoje.</div>
+<section data-p="manha">
+  <div class="hero" style="background:#FBF0D9;">
+    <div class="k" style="color:#B0710F;">Disposicao de hoje</div>
+    <div class="v" style="color:#5A3A06;">52/100 &middot; Dia leve</div>
+    <div class="d" style="color:#5A3A06;">Da pra treinar, mas leve. Nao force o ritmo hoje.</div>
   </div>
   <div class="sect">Sinais do corpo</div>
-  <div class="grid"><div class="c"><p class="k">Sono (nota)</p><p class="v">36</p><p class="s">3h13 dormidas</p></div><div class="c"><p class="k">Equilibrio do coracao</p><p class="v">32</p><p class="s">estavel = bom</p></div><div class="c"><p class="k">FC em repouso</p><p class="v">64 bpm</p><p class="s">media 7d: 61</p></div><div class="c"><p class="k">Bateria do corpo</p><p class="v">17%</p><p class="s"></p></div></div>
+  <div class="grid"><div class="c"><p class="k">Sono (nota)</p><p class="v">—</p><p class="s">de 0 a 100</p></div><div class="c"><p class="k">Equilibrio do coracao</p><p class="v">—</p><p class="s">media 7d: 32</p></div><div class="c"><p class="k">FC em repouso</p><p class="v">65 bpm</p><p class="s">media 7d: 61</p></div><div class="c"><p class="k">Bateria do corpo</p><p class="v">11%</p><p class="s"></p></div></div>
+  <div class="sect">Proximo treino</div>
+  <div class="box"><div class="row"><span class="rk">Agenda (seg/qua/sab)</span><span class="rv">Amanha 20/07 - corrida</span></div></div>
 </section>
 
-<section data-p="corrida" class="hide">
+<section data-p="pos" class="hide">
+  <div class="hero" style="background:#E8F0DA;">
+    <div class="k" style="color:#4E7D1B;">Ultimo treino (18/07)</div>
+    <div class="v" style="color:#2E4A0F;">8,0 km · 5:41/km · Ritmo recorde</div>
+    <div class="d" style="color:#2E4A0F;">Seu melhor ritmo ja registrado perto de 8 km (sua media de antes: 6:23/km). Nesse dia: sono fraco naquela noite (nota 36).</div>
+  </div>
+  <div class="sect">Ritmo por km</div><div class="box"><div class="row3"><span>1 km</span><span>5:31/km</span><span>148 bpm</span></div><div class="row3"><span>2 km</span><span>5:30/km</span><span>172 bpm</span></div><div class="row3"><span>3 km</span><span>5:32/km</span><span>167 bpm</span></div><div class="row3"><span>4 km</span><span>5:38/km</span><span>166 bpm</span></div><div class="row3"><span>5 km</span><span>5:43/km</span><span>161 bpm</span></div><div class="row3"><span>6 km</span><span>5:50/km</span><span>157 bpm</span></div><div class="row3"><span>7 km</span><span>5:54/km</span><span>160 bpm</span></div><div class="row3"><span>8 km</span><span>5:51/km</span><span>164 bpm</span></div><div class="row3"><span>9 km</span><span>7:20/km</span><span>166 bpm</span></div></div>
+  <div class="sect">Detalhes do treino</div>
+  <div class="grid"><div class="c"><p class="k">FC media</p><p class="v">162 bpm</p><p class="s"></p></div><div class="c"><p class="k">FC maxima</p><p class="v">183 bpm</p><p class="s"></p></div><div class="c"><p class="k">Tempo total</p><p class="v">45:34</p><p class="s"></p></div><div class="c"><p class="k">Calorias</p><p class="v">651</p><p class="s"></p></div></div>
+
+  <div class="sect">Meta e historico</div>
   <div class="goal">
     <div class="k">Proximo objetivo</div>
     <div class="v">Meia maratona - dezembro 2026</div>
     <div class="s">Novo PR nos 5K: 26:28 (09/07)!</div>
   </div>
-  <div class="sect">Proximo treino</div>
-  <div class="box"><div class="row"><span class="rk">Agenda (seg/qua/sab)</span><span class="rv">Hoje 18/07 - corrida</span></div></div>
   <div class="sect">Previsao de tempo (Garmin)</div>
-  <div class="grid"><div class="c"><p class="k">5 km</p><p class="v">24:22</p><p class="s"></p></div><div class="c"><p class="k">10 km</p><p class="v">53:15</p><p class="s"></p></div><div class="c"><p class="k">Meia</p><p class="v">2:01:12</p><p class="s"></p></div><div class="c"><p class="k">Maratona</p><p class="v">4:29:51</p><p class="s"></p></div></div>
+  <div class="grid"><div class="c"><p class="k">5 km</p><p class="v">24:24</p><p class="s"></p></div><div class="c"><p class="k">10 km</p><p class="v">53:19</p><p class="s"></p></div><div class="c"><p class="k">Meia</p><p class="v">2:01:17</p><p class="s"></p></div><div class="c"><p class="k">Maratona</p><p class="v">4:30:02</p><p class="s"></p></div></div>
   <div class="sect">Ultimas corridas</div>
   <div class="box"><div class="row"><span class="rk">18/07 &middot; 8,0 km</span><span class="rv">5:41/km &middot; 162 bpm</span></div><div class="row"><span class="rk">15/07 &middot; 6,0 km</span><span class="rv">5:38/km &middot; 158 bpm</span></div><div class="row"><span class="rk">13/07 &middot; 7,7 km</span><span class="rv">6:56/km &middot; 149 bpm</span></div></div>
   <div class="sect">Recordes</div>
   <div class="box"><div class="row"><span class="rk">5 km</span><span class="rv">26:28</span></div><div class="row"><span class="rk">1 km</span><span class="rv">5:00</span></div><div class="row"><span class="rk">1 milha</span><span class="rv">8:03</span></div></div>
 </section>
 
-<div class="foot">Atualizado automaticamente em 18/07 as 17:45</div>
+<div class="foot">Atualizado automaticamente em 19/07 as 06:55</div>
 </div>
 <script>
  var tabs=document.querySelectorAll('.tab'),ps=document.querySelectorAll('[data-p]');
