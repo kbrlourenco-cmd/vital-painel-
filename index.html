@@ -24,6 +24,7 @@
  .row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #EFEEE9;}
  .row:last-child{border-bottom:none;}
  .rk{font-size:13px;color:#6E6E68;} .rv{font-size:13px;font-weight:600;}
+ .note{font-size:12px;color:#6E6E68;padding:6px 0;line-height:1.5;}
  .row3{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #EFEEE9;font-size:13px;}
  .row3:last-child{border-bottom:none;}
  .row3 span{flex:1;} .row3 span:first-child{flex:0 0 46px;color:#6E6E68;}
@@ -37,31 +38,33 @@
 <header><h1>Meu Painel</h1><p>Kleber Lourenco &middot; 20/07/2026</p></header>
 
 <div class="tabs">
-  <button class="tab on" data-t="manha">Manha</button>
+  <button class="tab on" data-t="hoje">Hoje</button>
   <button class="tab" data-t="pos">Pos-treino</button>
 </div>
 
-<section data-p="manha">
+<section data-p="hoje">
   <div class="hero" style="background:#FBE3E0;">
     <div class="k" style="color:#C0392B;">Disposicao de hoje</div>
     <div class="v" style="color:#791F1F;">25/100 &middot; Descanso</div>
-    <div class="d" style="color:#791F1F;">O corpo pede descanso. Nada de treino forte hoje. Motivo: sono mediano naquela noite (nota 63).</div>
+    <div class="d" style="color:#791F1F;">O corpo pede descanso. Nada de treino forte hoje. Motivo: sono mediano na ultima noite (nota 63).</div>
+  </div>
+  
+  <div class="hero" style="background:#FBE3E0;margin-top:10px;">
+    <div class="k" style="color:#C0392B;">Treino planejado hoje</div>
+    <div class="v" style="color:#791F1F;">20/07 Seg - Corrida 6 Km</div>
+    <div class="d" style="color:#791F1F;">Treino planejado é 20/07 Seg - Corrida 6 Km, mas o corpo pede descanso hoje — considere adiar ou trocar por algo leve. (6,0 km · pace 05:25-05:35/km)</div>
   </div>
   <div class="sect">Sinais do corpo</div>
-  <div class="grid"><div class="c"><p class="k">Sono (nota)</p><p class="v">63</p><p class="s">6h55 dormidas</p></div><div class="c"><p class="k">Equilibrio do coracao</p><p class="v">Equilibrado</p><p class="s">media 7d: 33</p></div><div class="c"><p class="k">FC em repouso</p><p class="v">62 bpm</p><p class="s">media 7d: 61</p></div><div class="c"><p class="k">Bateria do corpo</p><p class="v">27%</p><p class="s"></p></div></div>
+  <div class="grid"><div class="c"><p class="k">Sono (nota)</p><p class="v">63</p><p class="s">6h55 dormidas</p></div><div class="c"><p class="k">Equilibrio do coracao</p><p class="v">Equilibrado</p><p class="s">media 7d: 33</p></div><div class="c"><p class="k">FC em repouso</p><p class="v">62 bpm</p><p class="s">media 7d: 61</p></div><div class="c"><p class="k">Bateria do corpo</p><p class="v">20%</p><p class="s"></p></div></div>
+  <div class="sect">Fases do sono</div><div class="box"><div class="row"><span class="rk">Profundo</span><span class="rv">1h13</span></div><div class="row"><span class="rk">Leve</span><span class="rv">5h24</span></div><div class="row"><span class="rk">REM</span><span class="rv">0h19</span></div><div class="row"><span class="rk">Acordado</span><span class="rv">0h27</span></div></div>
   <div class="sect">Proximo treino</div>
   <div class="box"><div class="row"><span class="rk">Agenda (seg/qua/sab)</span><span class="rv">Hoje 20/07 - corrida</span></div></div>
 </section>
 
 <section data-p="pos" class="hide">
-  <div class="hero" style="background:#E7EEF5;">
-    <div class="k" style="color:#2F5E8C;">Ultimo treino (20/07)</div>
-    <div class="v" style="color:#16324A;">Pedalada · 17:32</div>
-    <div class="d" style="color:#16324A;">o corpo pediu ~34h de recuperacao e a disposicao daquele dia foi baixa (nota 25).</div>
-  </div>
-  
-  <div class="sect">Detalhes do treino</div>
-  <div class="grid"><div class="c"><p class="k">FC media</p><p class="v">132 bpm</p><p class="s"></p></div><div class="c"><p class="k">Tempo</p><p class="v">17:32</p><p class="s"></p></div><div class="c"><p class="k">Calorias</p><p class="v">190</p><p class="s"></p></div><div class="c"><p class="k">Recuperacao</p><p class="v">34h</p><p class="s"></p></div></div>
+  <div class="sect">Treinos de 20/07</div>
+  <div class="note">Nesse dia: sono mediano naquela noite (nota 63).</div>
+  <div class="box" style="margin-bottom:10px;"><div class="row"><span class="rk">07:35 &middot; Musculacao</span><span class="rv">1:00:51</span></div><div class="grid" style="margin:8px 0;"><div class="c"><p class="k">FC media</p><p class="v">96 bpm</p><p class="s"></p></div><div class="c"><p class="k">Calorias</p><p class="v">283</p><p class="s"></p></div></div></div><div class="box" style="margin-bottom:10px;"><div class="row"><span class="rk">12:07 &middot; Pedalada</span><span class="rv">20:15</span></div><div class="grid" style="margin:8px 0;"><div class="c"><p class="k">FC media</p><p class="v">132 bpm</p><p class="s"></p></div><div class="c"><p class="k">Calorias</p><p class="v">214</p><p class="s"></p></div></div></div><div class="box" style="margin-bottom:10px;"><div class="row"><span class="rk">12:31 &middot; Corrida</span><span class="rv">6,4 km · 6:46/km · 2% mais rapido que a meta</span></div><div class="note">Meta: 6,0 km · 44:30-45:30 · pace 05:25-05:35/km. Real: 43:34.</div><div class="row3"><span>1 km</span><span>5:27/km</span><span>168 bpm</span></div><div class="row3"><span>2 km</span><span>5:37/km</span><span>174 bpm</span></div><div class="row3"><span>3 km</span><span>14:18/km</span><span>133 bpm</span></div><div class="row3"><span>4 km</span><span>5:43/km</span><span>167 bpm</span></div><div class="row3"><span>5 km</span><span>5:54/km</span><span>165 bpm</span></div><div class="row3"><span>6 km</span><span>29:49/km</span><span>135 bpm</span></div><div class="row3"><span>7 km</span><span>6:30/km</span><span>157 bpm</span></div><div class="row3"><span>8 km</span><span>6:07/km</span><span>158 bpm</span></div><div class="row3"><span>9 km</span><span>12:53/km</span><span>161 bpm</span></div><div class="row3"><span>10 km</span><span>11:24/km</span><span>160 bpm</span></div><div class="grid" style="margin:8px 0;"><div class="c"><p class="k">FC media</p><p class="v">159 bpm</p><p class="s"></p></div><div class="c"><p class="k">FC maxima</p><p class="v">187 bpm</p><p class="s"></p></div><div class="c"><p class="k">Tempo total</p><p class="v">43:34</p><p class="s"></p></div><div class="c"><p class="k">Calorias</p><p class="v">554</p><p class="s"></p></div></div></div><div class="box" style="margin-bottom:10px;"><div class="row"><span class="rk">13:32 &middot; Pedalada</span><span class="rv">17:32</span></div><div class="grid" style="margin:8px 0;"><div class="c"><p class="k">FC media</p><p class="v">132 bpm</p><p class="s"></p></div><div class="c"><p class="k">Calorias</p><p class="v">190</p><p class="s"></p></div></div></div>
 
   <div class="sect">Meta e historico</div>
   <div class="goal">
@@ -77,7 +80,7 @@
   <div class="box"><div class="row"><span class="rk">5 km</span><span class="rv">26:28</span></div><div class="row"><span class="rk">1 km</span><span class="rv">5:00</span></div><div class="row"><span class="rk">1 milha</span><span class="rv">8:03</span></div></div>
 </section>
 
-<div class="foot">Atualizado automaticamente em 20/07 as 16:10</div>
+<div class="foot">Atualizado automaticamente em 20/07 as 20:33</div>
 </div>
 <script>
  var tabs=document.querySelectorAll('.tab'),ps=document.querySelectorAll('[data-p]');
