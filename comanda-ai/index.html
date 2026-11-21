@@ -266,6 +266,14 @@ h2{font-size:20px;font-weight:700;letter-spacing:-.02em;margin:22px 0 10px}
   <div class="sh-foot"><button class="btn btn-primary btn-block" onclick="saveProduct()">Salvar</button></div>
 </div>
 
+<!-- Editar item da comanda -->
+<div class="sheet" id="sh-item">
+  <div class="grab"></div>
+  <div class="sh-head"><h3 id="ei-title">Item</h3><button class="btn btn-ghost btn-sm" onclick="backToComanda()">Voltar</button></div>
+  <div class="sh-body" id="ei-body"></div>
+  <div class="sh-foot"><button class="btn btn-primary btn-block" onclick="saveItem()">Salvar preço</button></div>
+</div>
+
 <!-- Detalhe venda -->
 <div class="sheet" id="sh-venda">
   <div class="grab"></div>
@@ -328,6 +336,9 @@ const persist = () => { save(K.prod, products); save(K.open, open); save(K.venda
 
 const P = id => products.find(p => p.id === id);
 const sellable = () => products.filter(p => p.ativo && p.cat !== 'Insumos');
+// "1.234,56" / "12,5" / "R$ 10" → número (null se inválido)
+const money = str => { const t = String(str).replace(/\s|R\$/g,'').replace(/\.(?=\d{3}(\D|$))/g,'').replace(',','.'); if(t==='') return 0; const n = Number(t); return isNaN(n)||n<0 ? null : Math.round(n*100)/100; };
+const origOf = i => i.precoOrig ?? P(i.pid)?.preco ?? i.preco;
 const totalOf = c => c.itens.reduce((s,i) => s + i.preco*i.qtd, 0);
 // "Dia operacional": o que é vendido às 2h da manhã conta no dia anterior.
 const opDay = ts => { const d = new Date(ts - cfg.virada*3600e3); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); };
@@ -398,7 +409,7 @@ function renderComanda(){
   $('cd-tipo').textContent = c.tipo==='mesa' ? 'Mesa · aberta às '+fmtTime(c.abertaEm) : 'Cliente · aberta às '+fmtTime(c.abertaEm);
   $('cd-nome').textContent = c.tipo==='mesa' ? 'Mesa '+c.nome : c.nome;
   $('cd-items').innerHTML = c.itens.length ? c.itens.map(i => `
-    <div class="item"><div class="n">${esc(i.nome)}<small>${brl(i.preco)} un.</small></div>
+    <div class="item"><button class="n" style="text-align:left" onclick="editItem('${i.pid}')">${esc(i.nome)}<small>${origOf(i)!==i.preco?`<s>${brl(origOf(i))}</s> `:''}<span style="color:${origOf(i)!==i.preco?'var(--warn)':'inherit'}">${brl(i.preco)} un.</span> · <span style="color:var(--a1)">editar</span></small></button>
       <div class="step"><button onclick="addItem('${i.pid}',-1)">−</button><span>${i.qtd}</span><button onclick="addItem('${i.pid}',1)">+</button></div>
       <div class="v">${brl(i.preco*i.qtd)}</div></div>`).join('') :
     `<p class="note" style="margin:14px 0">Nenhum item ainda. Toque nos produtos abaixo para lançar.</p>`;
@@ -422,12 +433,35 @@ function available(p){
 function addItem(pid, d){
   const p = P(pid); if(!p) return;
   let it = current.itens.find(i=>i.pid===pid);
-  if(!it && d>0){ it = {pid, nome:p.nome, preco:p.preco, qtd:0}; current.itens.push(it); }
+  if(!it && d>0){ it = {pid, nome:p.nome, preco:p.preco, precoOrig:p.preco, qtd:0}; current.itens.push(it); }
   if(!it) return;
   it.qtd += d;
   if(it.qtd<=0) current.itens = current.itens.filter(i=>i!==it);
   if(d>0){ haptic(); const av = available(p); if(av!==null && av - it.qtd < 0) toast('⚠️ Estoque de '+p.nome+' pode estar zerado'); }
   persist(); renderComanda();
+}
+let editingItem = null;
+function editItem(pid){
+  editingItem = current.itens.find(i=>i.pid===pid); if(!editingItem) return;
+  const i = editingItem, o = origOf(i);
+  $('ei-title').textContent = i.nome;
+  $('ei-body').innerHTML = `
+    <p class="note">Preço de tabela: <b>${brl(o)}</b> · ${plural(i.qtd)} nesta comanda. O novo preço vale só para esta comanda.</p>
+    <label class="field"><span>Preço por unidade (R$)</span><input class="inp" id="ei-preco" inputmode="decimal" value="${i.preco.toFixed(2).replace('.',',')}" style="font-size:24px;height:60px;font-weight:700"></label>
+    <div class="row" style="margin-bottom:14px">
+      <button class="btn btn-ghost btn-sm" onclick="$('ei-preco').value='${o.toFixed(2).replace('.',',')}'">Tabela</button>
+      <button class="btn btn-ghost btn-sm" onclick="$('ei-preco').value='${(o*0.9).toFixed(2).replace('.',',')}'">−10%</button>
+      <button class="btn btn-ghost btn-sm" onclick="$('ei-preco').value='${(o*0.8).toFixed(2).replace('.',',')}'">−20%</button>
+      <button class="btn btn-ghost btn-sm" onclick="$('ei-preco').value='0,00'">Cortesia</button>
+    </div>`;
+  openSheet('sh-item');
+  setTimeout(()=>{ const el=$('ei-preco'); el.focus(); el.select(); },300);
+}
+function saveItem(){
+  const v = money($('ei-preco').value);
+  if(v===null) return toast('Valor inválido');
+  editingItem.precoOrig = origOf(editingItem); editingItem.preco = Math.round(v*100)/100;
+  persist(); renderComanda(); backToComanda(); toast('Preço atualizado');
 }
 function renameComanda(){
   const n = prompt('Novo nome / número da mesa:', current.nome);
@@ -439,22 +473,25 @@ function cancelComanda(){
 }
 
 /* ================== Fechar conta ================== */
-let pay = null, comTaxa = false, pessoas = 1;
+let pay = null, comTaxa = false, pessoas = 1, desconto = 0;
 function openClose(){
   if(!current.itens.length) return toast('A comanda está vazia');
-  pay = null; comTaxa = cfg.taxa>0; pessoas = 1; renderClose(); openSheet('sh-close');
+  pay = null; comTaxa = false; pessoas = 1; desconto = 0; renderClose(); openSheet('sh-close');
 }
 function backToComanda(){ openSheet('sh-comanda'); }
 function renderClose(){
-  const sub = totalOf(current), tx = comTaxa ? Math.round(sub*cfg.taxa)/100 : 0, tot = sub+tx;
+  const sub = totalOf(current), tx = comTaxa ? Math.round(sub*cfg.taxa)/100 : 0, tot = Math.max(0, sub+tx-desconto);
   $('close-body').innerHTML = `
     <div class="glass list" style="margin-bottom:14px">
       <div class="li"><span class="a">${current.tipo==='mesa'?'Mesa '+esc(current.nome):esc(current.nome)}<small>${plural(current.itens.reduce((s,i)=>s+i.qtd,0))} · aberta há ${since(current.abertaEm)}</small></span><span class="b">${brl(sub)}</span></div>
-      ${cfg.taxa>0?`<div class="li"><span class="a">Taxa de serviço (${cfg.taxa}%)</span><span class="b">${brl(tx)}</span></div>`:''}
+      ${comTaxa?`<div class="li"><span class="a">Taxa de serviço (${cfg.taxa}%)</span><span class="b">${brl(tx)}</span></div>`:''}
     </div>
     ${cfg.taxa>0?`<div class="toggle" onclick="comTaxa=!comTaxa;renderClose()">Cobrar ${cfg.taxa}% de serviço<span class="sw ${comTaxa?'on':''}"></span></div>`:''}
     <div class="toggle">Dividir entre
       <span class="step"><button onclick="pessoas=Math.max(1,pessoas-1);renderClose()">−</button><span>${pessoas}</span><button onclick="pessoas++;renderClose()">+</button></span></div>
+    <div class="toggle" style="gap:10px">Desconto / abatimento
+      <span class="row" style="flex:0 0 auto;gap:6px"><span style="color:var(--muted)">R$</span><input class="inp" style="width:110px;height:40px;text-align:right" inputmode="decimal" placeholder="0,00" value="${desconto?String(desconto.toFixed(2)).replace('.',','):''}" onchange="desconto=money(this.value)||0;renderClose()"></span></div>
+    ${desconto?`<div class="li" style="padding:0 4px 10px"><span class="a" style="color:var(--warn)">Desconto aplicado</span><span class="b" style="color:var(--warn)">− ${brl(desconto)}</span></div>`:''}
     <div class="total-row"><span class="lbl">${pessoas>1?`Total · ${brl(tot/pessoas)} por pessoa`:'Total a cobrar'}</span><span class="val">${brl(tot)}</span></div>
     <div class="eyebrow" style="margin:6px 4px 10px">Forma de pagamento</div>
     <div class="pay">
@@ -465,7 +502,7 @@ function renderClose(){
 }
 function confirmClose(){
   if(!pay) return toast('Escolha a forma de pagamento');
-  const sub = totalOf(current), tx = comTaxa ? Math.round(sub*cfg.taxa)/100 : 0;
+  const sub = totalOf(current), tx = comTaxa ? Math.round(sub*cfg.taxa)/100 : 0, desc = Math.min(desconto, sub+tx);
   // baixa de estoque: o próprio produto + insumos (ex.: narguilé → 3 carvões)
   const mov = {};
   for(const i of current.itens){
@@ -476,7 +513,7 @@ function confirmClose(){
   for(const [id,q] of Object.entries(mov)){ const p = P(id); if(p && p.estoque!=null) p.estoque -= q; }
   const now = Date.now();
   const v = {id:current.id, tipo:current.tipo, nome:current.nome, abertaEm:current.abertaEm, fechadaEm:now, dia:opDay(now),
-             itens:current.itens.map(i=>({...i})), subtotal:sub, taxa:tx, total:sub+tx, pagamento:pay, baixas:mov};
+             itens:current.itens.map(i=>({...i})), subtotal:sub, taxa:tx, desconto:desc, total:sub+tx-desc, pagamento:pay, baixas:mov};
   vendas.push(v); queue.push(v.id);
   open = open.filter(c=>c!==current);
   persist(); haptic(); closeSheets();
@@ -491,7 +528,7 @@ const PAYL = {credito:'Crédito', debito:'Débito', pix:'Pix', dinheiro:'Dinheir
 function renderCaixa(){
   $('caixa-date').textContent = fmtDay(caixaDay) + (caixaDay===opDay(Date.now())?' · hoje':'');
   const vs = vendas.filter(v=>v.dia===caixaDay).sort((a,b)=>b.fechadaEm-a.fechadaEm);
-  const tot = vs.reduce((s,v)=>s+v.total,0), taxa = vs.reduce((s,v)=>s+v.taxa,0);
+  const tot = vs.reduce((s,v)=>s+v.total,0), taxa = vs.reduce((s,v)=>s+v.taxa,0), descs = vs.reduce((s,v)=>s+(v.desconto||0)+v.itens.reduce((a,i)=>a+(origOf(i)-i.preco)*i.qtd,0),0);
   const byPay = {}; vs.forEach(v => byPay[v.pagamento]=(byPay[v.pagamento]||0)+v.total);
   const byProd = {}; vs.forEach(v => v.itens.forEach(i => { byProd[i.nome] = byProd[i.nome]||{q:0,v:0}; byProd[i.nome].q+=i.qtd; byProd[i.nome].v+=i.qtd*i.preco; }));
   const top = Object.entries(byProd).sort((a,b)=>b[1].v-a[1].v).slice(0,8);
@@ -506,7 +543,8 @@ function renderCaixa(){
     </div>
     <h2>Por forma de pagamento</h2>
     <div class="glass list">${Object.keys(PAYL).map(k => `<div class="li"><span class="a">${PAYL[k]}</span><span class="b">${brl(byPay[k]||0)}</span></div>`).join('')}
-      ${taxa?`<div class="li"><span class="a">Taxa de serviço (incluída)</span><span class="b">${brl(taxa)}</span></div>`:''}</div>
+      ${taxa?`<div class="li"><span class="a">Taxa de serviço (incluída)</span><span class="b">${brl(taxa)}</span></div>`:''}
+      ${descs?`<div class="li"><span class="a" style="color:var(--warn)">Descontos concedidos</span><span class="b" style="color:var(--warn)">− ${brl(descs)}</span></div>`:''}</div>
     ${top.length?`<h2>Mais vendidos</h2><div class="glass list">${top.map(([n,o]) => `<div class="li" style="display:block"><div style="display:flex;justify-content:space-between"><span class="a">${esc(n)} <span class="badge">${o.q}×</span></span><span class="b">${brl(o.v)}</span></div><div class="bar"><i style="width:${o.v/maxTop*100}%"></i></div></div>`).join('')}</div>`:''}
     <h2>Contas fechadas</h2>
     ${vs.length?`<div class="glass list">${vs.map(v => `<button class="li" onclick="showVenda('${v.id}')"><span class="a">${v.tipo==='mesa'?'Mesa '+esc(v.nome):esc(v.nome)}<small>${fmtTime(v.abertaEm)} → ${fmtTime(v.fechadaEm)} · ${PAYL[v.pagamento]}${queue.includes(v.id)?' · <span style="color:var(--warn)">não sincronizada</span>':''}</small></span><span class="b">${brl(v.total)}</span></button>`).join('')}</div>`
@@ -517,15 +555,16 @@ function showVenda(id){
   const v = vendas.find(x=>x.id===id); if(!v) return;
   $('vd-title').textContent = v.tipo==='mesa' ? 'Mesa '+v.nome : v.nome;
   $('vd-body').innerHTML = `<p class="note">${new Date(v.fechadaEm).toLocaleString('pt-BR')} · ${PAYL[v.pagamento]}</p>
-    <div class="glass list">${v.itens.map(i=>`<div class="li"><span class="a">${i.qtd}× ${esc(i.nome)}</span><span class="b">${brl(i.qtd*i.preco)}</span></div>`).join('')}
+    <div class="glass list">${v.itens.map(i=>`<div class="li"><span class="a">${i.qtd}× ${esc(i.nome)}${origOf(i)!==i.preco?`<small>preço alterado: ${brl(origOf(i))} → ${brl(i.preco)}</small>`:''}</span><span class="b">${brl(i.qtd*i.preco)}</span></div>`).join('')}
     ${v.taxa?`<div class="li"><span class="a">Taxa de serviço</span><span class="b">${brl(v.taxa)}</span></div>`:''}
+    ${v.desconto?`<div class="li"><span class="a">Desconto</span><span class="b">− ${brl(v.desconto)}</span></div>`:''}
     <div class="li"><span class="a"><b>Total</b></span><span class="b">${brl(v.total)}</span></div></div>`;
   openSheet('sh-venda');
 }
 function exportCSV(){
   const vs = vendas.filter(v=>v.dia===caixaDay);
-  const rows = [['dia','aberta','fechada','tipo','comanda','produto','qtd','preco','subtotal_item','pagamento','taxa_servico','total_comanda']];
-  vs.forEach(v => v.itens.forEach(i => rows.push([v.dia, new Date(v.abertaEm).toLocaleString('pt-BR'), new Date(v.fechadaEm).toLocaleString('pt-BR'), v.tipo, v.nome, i.nome, i.qtd, i.preco.toFixed(2).replace('.',','), (i.qtd*i.preco).toFixed(2).replace('.',','), PAYL[v.pagamento], v.taxa.toFixed(2).replace('.',','), v.total.toFixed(2).replace('.',',')])));
+  const rows = [['dia','aberta','fechada','tipo','comanda','produto','qtd','preco','subtotal_item','pagamento','taxa_servico','desconto','total_comanda']];
+  vs.forEach(v => v.itens.forEach(i => rows.push([v.dia, new Date(v.abertaEm).toLocaleString('pt-BR'), new Date(v.fechadaEm).toLocaleString('pt-BR'), v.tipo, v.nome, i.nome, i.qtd, i.preco.toFixed(2).replace('.',','), (i.qtd*i.preco).toFixed(2).replace('.',','), PAYL[v.pagamento], v.taxa.toFixed(2).replace('.',','), (v.desconto||0).toFixed(2).replace('.',','), v.total.toFixed(2).replace('.',',')])));
   const csv = '﻿' + rows.map(r=>r.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(';')).join('\n');
   const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download = 'caixa-'+caixaDay+'.csv'; a.click();
 }
@@ -600,7 +639,7 @@ function renderAjustes(){
       <label class="field"><span>Nome do bar</span><input class="inp" value="${esc(cfg.bar)}" onchange="cfg.bar=this.value;persist()"></label>
       <div class="row">
         <label class="field"><span>Nº de mesas</span><input class="inp" inputmode="numeric" value="${cfg.mesas}" onchange="cfg.mesas=Math.max(1,parseInt(this.value)||20);persist()"></label>
-        <label class="field"><span>Taxa de serviço %</span><input class="inp" inputmode="numeric" value="${cfg.taxa}" onchange="cfg.taxa=Math.max(0,Number(this.value)||0);persist()"></label>
+        <label class="field"><span>Taxa de serviço % (opcional)</span><input class="inp" inputmode="numeric" value="${cfg.taxa}" onchange="cfg.taxa=Math.max(0,Number(this.value)||0);persist()"></label>
       </div>
       <label class="field"><span>Virada do dia (hora)</span><input class="inp" inputmode="numeric" value="${cfg.virada}" onchange="cfg.virada=Math.min(12,Math.max(0,parseInt(this.value)||0));persist()"></label>
       <p class="note" style="margin-bottom:0">Vendas antes desse horário contam no dia anterior (ex.: 6 → a madrugada de sábado entra no caixa de sexta).</p>
@@ -617,7 +656,7 @@ function renderAjustes(){
       <button class="btn btn-ghost btn-block" onclick="backup()">Baixar backup (JSON)</button>
       <button class="btn btn-danger btn-block" style="margin-top:10px" onclick="resetAll()">Apagar tudo e recomeçar</button>
     </div>
-    <p class="note" style="text-align:center;margin-top:24px">Comanda Aí · versão de teste 0.1</p>`;
+    <p class="note" style="text-align:center;margin-top:24px">Comanda Aí · versão de teste 0.2</p>`;
 }
 async function api(body){
   if(!cfg.url) throw new Error('Configure a URL da planilha em Ajustes');

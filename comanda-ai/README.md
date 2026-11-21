@@ -1,12 +1,15 @@
-# Comanda Aí — versão de teste 0.1
+# Comanda Aí — versão de teste 0.2
+
+**Modelo de uso:** um único aparelho fica no caixa e concentra todas as comandas.
 
 App de comandas para bares que servem só bebidas (cerveja, destilados, energéticos, refrigerantes, sucos, águas) e **narguilé**, com baixa automática de insumos (ex.: 1 narguilé = 3 carvões + 1 essência).
 
 ## O que já faz
 - **Comandas** por mesa (grade numérica) ou por nome do cliente.
 - **Lançar consumo** com um toque por produto, +/− por item e indicador de estoque.
-- **Fechar conta**: taxa de serviço opcional, divisão por pessoas e forma de pagamento (crédito/débito/pix/dinheiro). Depois de passar na maquininha, toque em “Cobrado na maquininha ✓”.
-- **Caixa do dia**: faturamento, ticket médio, total por forma de pagamento, mais vendidos, lista de contas com hora de abertura e fechamento, exportação em CSV.
+- **Preço editável por item**: toque no item da comanda para mudar o preço (atalhos −10%, −20% e Cortesia). O preço de tabela fica registrado para comparação.
+- **Fechar conta**: 10% de serviço desligado por padrão (liga na hora, se quiser), desconto/abatimento em R$, divisão por pessoas e forma de pagamento (crédito/débito/pix/dinheiro). Depois de passar na maquininha, toque em “Cobrado na maquininha ✓”.
+- **Caixa do dia**: faturamento, total de descontos concedidos, ticket médio, total por forma de pagamento, mais vendidos, lista de contas com hora de abertura e fechamento, exportação em CSV.
   - *Virada do dia* (padrão 6h): o que é vendido de madrugada conta no caixa da noite anterior.
 - **Estoque**: baixa automática no fechamento, alerta de mínimo, entrada rápida (+6/+12/+24), produtos que consomem insumos.
 - **Funciona offline** (PWA). Os dados ficam no aparelho e são enviados à planilha quando houver internet.
@@ -25,6 +28,6 @@ Abra `index.html` em um servidor estático (ex.: `python3 -m http.server`) ou pu
 No iPhone: Safari → Compartilhar → “Adicionar à Tela de Início”. No Android: Chrome → “Instalar app”.
 
 ## Limitações conhecidas (v0.1)
-- Os dados ficam no aparelho. Com **vários celulares**, cada um tem as próprias comandas abertas, e só as vendas fechadas se juntam na planilha. Comandas compartilhadas em tempo real ficam para a v0.2 (Firebase ou Supabase, que também têm plano gratuito).
+- Um aparelho só (o do caixa). Os dados ficam nele; faça backup em Ajustes ou conecte a planilha.
 - Não há login nem perfis (garçom × dono).
 - Não emite cupom fiscal (NFC-e).

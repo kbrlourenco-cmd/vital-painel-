@@ -22,8 +22,8 @@
 
 const HEAD = {
   Produtos:   ['id','nome','categoria','preco','estoque','minimo','baixa','ativo'],
-  Vendas:     ['id','dia','aberta_em','fechada_em','tipo','comanda','itens','subtotal','taxa_servico','total','pagamento'],
-  Itens:      ['venda_id','dia','fechada_em','comanda','produto_id','produto','qtd','preco','subtotal'],
+  Vendas:     ['id','dia','aberta_em','fechada_em','tipo','comanda','itens','subtotal','taxa_servico','desconto','total','pagamento'],
+  Itens:      ['venda_id','dia','fechada_em','comanda','produto_id','produto','qtd','preco_tabela','preco_cobrado','subtotal'],
   Movimentos: ['data','venda_id','produto_id','produto','qtd_baixada','estoque_apos'],
 };
 
@@ -118,8 +118,8 @@ function saveSales_(vendas) {
 
   novas.forEach(v => {
     vRows.push([v.id, v.dia, fmt(v.abertaEm), fmt(v.fechadaEm), v.tipo, v.nome,
-      v.itens.map(i => i.qtd + 'x ' + i.nome).join(', '), v.subtotal, v.taxa, v.total, v.pagamento]);
-    v.itens.forEach(i => iRows.push([v.id, v.dia, fmt(v.fechadaEm), v.nome, i.pid, i.nome, i.qtd, i.preco, i.qtd * i.preco]));
+      v.itens.map(i => i.qtd + 'x ' + i.nome).join(', '), v.subtotal, v.taxa, v.desconto || 0, v.total, v.pagamento]);
+    v.itens.forEach(i => iRows.push([v.id, v.dia, fmt(v.fechadaEm), v.nome, i.pid, i.nome, i.qtd, i.precoOrig != null ? i.precoOrig : i.preco, i.preco, i.qtd * i.preco]));
     Object.keys(v.baixas || {}).forEach(pid => {
       const q = v.baixas[pid], row = idx[pid];
       let after = '';
