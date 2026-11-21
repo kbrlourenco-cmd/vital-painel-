@@ -165,7 +165,7 @@ h2{font-size:20px;font-weight:700;letter-spacing:-.02em;margin:22px 0 10px}
   <!-- COMANDAS -->
   <section class="page" id="p-comandas">
     <div class="eyebrow" id="today-lbl"></div>
-    <h1>Comandas <button class="btn btn-primary round" onclick="openNew()" aria-label="Nova comanda">+</button></h1>
+    <h1>Saídas <button class="btn btn-primary round" onclick="openNew()" aria-label="Nova comanda">+</button></h1>
     <div class="seg" id="filter-seg">
       <button class="on" data-f="all">Todas</button><button data-f="mesa">Mesas</button><button data-f="pessoa">Nomes</button>
     </div>
@@ -173,9 +173,21 @@ h2{font-size:20px;font-weight:700;letter-spacing:-.02em;margin:22px 0 10px}
   </section>
 
   <!-- CAIXA -->
+  <section class="page" id="p-entradas" hidden>
+    <div class="eyebrow">Compras e despesas</div>
+    <h1>Entradas <button class="btn btn-primary round" onclick="openEntrada()" aria-label="Nova entrada">+</button></h1>
+    <div class="glass date-nav">
+      <button class="btn btn-ghost btn-sm" onclick="shiftDay(-1)">‹</button>
+      <b id="ent-date"></b>
+      <button class="btn btn-ghost btn-sm" onclick="shiftDay(1)">›</button>
+    </div>
+    <div id="entradas-body"></div>
+  </section>
+
   <section class="page" id="p-caixa" hidden>
-    <div class="eyebrow">Fechamento</div>
-    <h1>Caixa</h1>
+    <div class="eyebrow">Entradas × saídas</div>
+    <h1>Resumo</h1>
+    <div class="seg" id="periodo-seg"><button class="on" data-m="dia">Dia</button><button data-m="mes">Mês</button></div>
     <div class="glass date-nav">
       <button class="btn btn-ghost btn-sm" onclick="shiftDay(-1)">‹</button>
       <b id="caixa-date"></b>
@@ -201,8 +213,9 @@ h2{font-size:20px;font-weight:700;letter-spacing:-.02em;margin:22px 0 10px}
 </div>
 
 <nav class="tabbar glass" id="tabbar">
-  <button class="on" data-p="comandas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h12v20l-3-2-3 2-3-2-3 2z"/><path d="M9 7h6M9 11h6M9 15h4"/></svg>Comandas</button>
-  <button data-p="caixa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>Caixa</button>
+  <button class="on" data-p="comandas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h12v20l-3-2-3 2-3-2-3 2z"/><path d="M9 7h6M9 11h6M9 15h4"/></svg>Saídas</button>
+  <button data-p="entradas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 17v3h16v-3"/></svg>Entradas</button>
+  <button data-p="caixa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>Resumo</button>
   <button data-p="estoque"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>Estoque</button>
   <button data-p="ajustes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Ajustes</button>
 </nav>
@@ -266,6 +279,14 @@ h2{font-size:20px;font-weight:700;letter-spacing:-.02em;margin:22px 0 10px}
   <div class="sh-foot"><button class="btn btn-primary btn-block" onclick="saveProduct()">Salvar</button></div>
 </div>
 
+<!-- Nova entrada -->
+<div class="sheet" id="sh-ent">
+  <div class="grab"></div>
+  <div class="sh-head"><h3>Nova entrada</h3><button class="btn btn-ghost btn-sm" onclick="closeSheets()">Cancelar</button></div>
+  <div class="sh-body" id="ent-body"></div>
+  <div class="sh-foot"><button class="btn btn-primary btn-block" onclick="saveEntrada()">Registrar entrada</button></div>
+</div>
+
 <!-- Editar item da comanda -->
 <div class="sheet" id="sh-item">
   <div class="grab"></div>
@@ -285,7 +306,7 @@ h2{font-size:20px;font-weight:700;letter-spacing:-.02em;margin:22px 0 10px}
 
 <script>
 /* ================== Estado & persistência ================== */
-const K = {prod:'ca_produtos', open:'ca_abertas', vendas:'ca_vendas', cfg:'ca_cfg', queue:'ca_fila'};
+const K = {prod:'ca_produtos', open:'ca_abertas', vendas:'ca_vendas', cfg:'ca_cfg', queue:'ca_fila', ent:'ca_entradas'};
 const load = (k, d) => { try { const v = JSON.parse(localStorage.getItem(k)); return v ?? d; } catch(e){ return d; } };
 const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){ toast('Não foi possível salvar no aparelho'); } };
 const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,7);
@@ -331,8 +352,9 @@ let products = load(K.prod, null) || DEFAULT_PRODUCTS;
 let open = load(K.open, []);
 let vendas = load(K.vendas, []);
 let queue = load(K.queue, []);
+let entradas = load(K.ent, []);
 let cfg = Object.assign({virada:6, taxa:10, mesas:20, url:'', bar:'Meu Bar'}, load(K.cfg, {}));
-const persist = () => { save(K.prod, products); save(K.open, open); save(K.vendas, vendas); save(K.queue, queue); save(K.cfg, cfg); };
+const persist = () => { save(K.prod, products); save(K.open, open); save(K.vendas, vendas); save(K.queue, queue); save(K.cfg, cfg); save(K.ent, entradas); };
 
 const P = id => products.find(p => p.id === id);
 const sellable = () => products.filter(p => p.ativo && p.cat !== 'Insumos');
@@ -361,7 +383,7 @@ document.querySelectorAll('#tabbar button').forEach(b => b.onclick = () => {
   document.querySelectorAll('.page').forEach(p => p.hidden = p.id !== 'p-'+page);
   render();
 });
-function render(){ ({comandas:renderComandas, caixa:renderCaixa, estoque:renderEstoque, ajustes:renderAjustes})[page](); }
+function render(){ ({comandas:renderComandas, entradas:renderEntradas, caixa:renderCaixa, estoque:renderEstoque, ajustes:renderAjustes})[page](); }
 
 /* ================== Comandas ================== */
 let filter = 'all';
@@ -369,7 +391,7 @@ document.querySelectorAll('#filter-seg button').forEach(b => b.onclick = () => {
   filter = b.dataset.f; document.querySelectorAll('#filter-seg button').forEach(x=>x.classList.toggle('on',x===b)); renderComandas();
 });
 function renderComandas(){
-  $('today-lbl').textContent = fmtDay(opDay(Date.now())) + ' · ' + open.length + ' abertas';
+  $('today-lbl').textContent = 'Comandas · ' + fmtDay(opDay(Date.now())) + ' · ' + open.length + (open.length===1?' aberta':' abertas');
   const list = open.filter(c => filter==='all' || c.tipo===filter)
     .sort((a,b) => a.tipo!==b.tipo ? (a.tipo==='mesa'?-1:1) : a.tipo==='mesa' ? Number(a.nome)-Number(b.nome) : a.nome.localeCompare(b.nome));
   $('comandas-grid').innerHTML = list.length ? list.map(c => `
@@ -514,42 +536,134 @@ function confirmClose(){
   const now = Date.now();
   const v = {id:current.id, tipo:current.tipo, nome:current.nome, abertaEm:current.abertaEm, fechadaEm:now, dia:opDay(now),
              itens:current.itens.map(i=>({...i})), subtotal:sub, taxa:tx, desconto:desc, total:sub+tx-desc, pagamento:pay, baixas:mov};
-  vendas.push(v); queue.push(v.id);
+  vendas.push(v);
   open = open.filter(c=>c!==current);
   persist(); haptic(); closeSheets();
   toast('✅ Conta fechada · '+brl(v.total));
-  syncPush();
 }
 
 /* ================== Caixa ================== */
-let caixaDay = opDay(Date.now());
-function shiftDay(n){ const [y,m,d]=caixaDay.split('-').map(Number); const dt=new Date(y,m-1,d+n); caixaDay=dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0'); renderCaixa(); }
+let caixaDay = opDay(Date.now()), periodo = 'dia';
+const ymd = dt => dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0');
+function shiftDay(n){
+  const [y,m,d] = caixaDay.split('-').map(Number);
+  // no Resumo em modo Mês, as setas andam de mês em mês
+  caixaDay = (page==='caixa' && periodo==='mes') ? ymd(new Date(y,m-1+n,1)) : ymd(new Date(y,m-1,d+n));
+  render();
+}
+document.querySelectorAll('#periodo-seg button').forEach(b => b.onclick = () => {
+  periodo = b.dataset.m; document.querySelectorAll('#periodo-seg button').forEach(x=>x.classList.toggle('on',x===b)); renderCaixa();
+});
+const inPeriod = dia => periodo==='dia' ? dia===caixaDay : dia.slice(0,7)===caixaDay.slice(0,7);
+const fmtMonth = s => { const [y,m] = s.split('-').map(Number); const t = new Date(y,m-1,1).toLocaleDateString('pt-BR',{month:'long',year:'numeric'}); return t[0].toUpperCase()+t.slice(1); };
+const dayLabel = () => fmtDay(caixaDay) + (caixaDay===opDay(Date.now())?' · hoje':'');
 const PAYL = {credito:'Crédito', debito:'Débito', pix:'Pix', dinheiro:'Dinheiro'};
 function renderCaixa(){
-  $('caixa-date').textContent = fmtDay(caixaDay) + (caixaDay===opDay(Date.now())?' · hoje':'');
-  const vs = vendas.filter(v=>v.dia===caixaDay).sort((a,b)=>b.fechadaEm-a.fechadaEm);
-  const tot = vs.reduce((s,v)=>s+v.total,0), taxa = vs.reduce((s,v)=>s+v.taxa,0), descs = vs.reduce((s,v)=>s+(v.desconto||0)+v.itens.reduce((a,i)=>a+(origOf(i)-i.preco)*i.qtd,0),0);
+  $('caixa-date').textContent = periodo==='dia' ? dayLabel() : fmtMonth(caixaDay);
+  const vs = vendas.filter(v=>inPeriod(v.dia)).sort((a,b)=>b.fechadaEm-a.fechadaEm);
+  const es = entradas.filter(e=>inPeriod(e.dia));
+  const tot = vs.reduce((s,v)=>s+v.total,0), gasto = es.reduce((s,e)=>s+e.valor,0), res = tot-gasto;
+  const taxa = vs.reduce((s,v)=>s+v.taxa,0), descs = vs.reduce((s,v)=>s+(v.desconto||0)+v.itens.reduce((a,i)=>a+(origOf(i)-i.preco)*i.qtd,0),0);
   const byPay = {}; vs.forEach(v => byPay[v.pagamento]=(byPay[v.pagamento]||0)+v.total);
   const byProd = {}; vs.forEach(v => v.itens.forEach(i => { byProd[i.nome] = byProd[i.nome]||{q:0,v:0}; byProd[i.nome].q+=i.qtd; byProd[i.nome].v+=i.qtd*i.preco; }));
   const top = Object.entries(byProd).sort((a,b)=>b[1].v-a[1].v).slice(0,8);
   const maxTop = top[0]?.[1].v || 1;
-  const abertoTot = caixaDay===opDay(Date.now()) ? open.reduce((s,c)=>s+totalOf(c),0) : 0;
+  const abertoTot = periodo==='dia' && caixaDay===opDay(Date.now()) ? open.reduce((s,c)=>s+totalOf(c),0) : 0;
+  // no modo mês: uma linha por dia com saídas, entradas e resultado
+  let dias = '';
+  if(periodo==='mes'){
+    const m = {};
+    vs.forEach(v => { m[v.dia] = m[v.dia]||{s:0,e:0}; m[v.dia].s += v.total; });
+    es.forEach(e => { m[e.dia] = m[e.dia]||{s:0,e:0}; m[e.dia].e += e.valor; });
+    const ks = Object.keys(m).sort().reverse();
+    dias = `<h2>Dia a dia</h2>` + (ks.length ? `<div class="glass list">${ks.map(k => `<button class="li" onclick="periodo='dia';caixaDay='${k}';document.querySelectorAll('#periodo-seg button').forEach(x=>x.classList.toggle('on',x.dataset.m==='dia'));renderCaixa()"><span class="a">${fmtDay(k)}<small>saídas ${brl(m[k].s)} · entradas ${brl(m[k].e)}</small></span><span class="b" style="color:${m[k].s-m[k].e<0?'var(--bad)':'var(--ok)'}">${brl(m[k].s-m[k].e)}</span></button>`).join('')}</div>` : `<p class="note">Sem movimento neste mês.</p>`);
+  }
   $('caixa-body').innerHTML = `
     <div class="kpis">
-      <div class="kpi hero glass"><div class="l">Faturamento do dia</div><div class="v">${brl(tot)}</div>
+      <div class="kpi hero glass"><div class="l">Resultado ${periodo==='dia'?'do dia':'do mês'} (saídas − entradas)</div><div class="v" style="${res<0?'background:none;color:var(--bad);-webkit-text-fill-color:var(--bad)':''}">${brl(res)}</div>
         ${abertoTot?`<div class="note" style="margin:6px 0 0">+ ${brl(abertoTot)} ainda em comandas abertas</div>`:''}</div>
+      <button class="kpi glass" style="text-align:left" onclick="document.querySelector('#tabbar [data-p=comandas]').click()"><div class="l">↑ Saídas (vendas)</div><div class="v" style="color:var(--ok)">${brl(tot)}</div></button>
+      <button class="kpi glass" style="text-align:left" onclick="document.querySelector('#tabbar [data-p=entradas]').click()"><div class="l">↓ Entradas (compras)</div><div class="v" style="color:var(--warn)">${brl(gasto)}</div></button>
       <div class="kpi glass"><div class="l">Contas fechadas</div><div class="v">${vs.length}</div></div>
       <div class="kpi glass"><div class="l">Ticket médio</div><div class="v">${brl(vs.length?tot/vs.length:0)}</div></div>
     </div>
-    <h2>Por forma de pagamento</h2>
+    ${dias}
+    <h2>Saídas por forma de pagamento</h2>
     <div class="glass list">${Object.keys(PAYL).map(k => `<div class="li"><span class="a">${PAYL[k]}</span><span class="b">${brl(byPay[k]||0)}</span></div>`).join('')}
       ${taxa?`<div class="li"><span class="a">Taxa de serviço (incluída)</span><span class="b">${brl(taxa)}</span></div>`:''}
       ${descs?`<div class="li"><span class="a" style="color:var(--warn)">Descontos concedidos</span><span class="b" style="color:var(--warn)">− ${brl(descs)}</span></div>`:''}</div>
     ${top.length?`<h2>Mais vendidos</h2><div class="glass list">${top.map(([n,o]) => `<div class="li" style="display:block"><div style="display:flex;justify-content:space-between"><span class="a">${esc(n)} <span class="badge">${o.q}×</span></span><span class="b">${brl(o.v)}</span></div><div class="bar"><i style="width:${o.v/maxTop*100}%"></i></div></div>`).join('')}</div>`:''}
-    <h2>Contas fechadas</h2>
-    ${vs.length?`<div class="glass list">${vs.map(v => `<button class="li" onclick="showVenda('${v.id}')"><span class="a">${v.tipo==='mesa'?'Mesa '+esc(v.nome):esc(v.nome)}<small>${fmtTime(v.abertaEm)} → ${fmtTime(v.fechadaEm)} · ${PAYL[v.pagamento]}${queue.includes(v.id)?' · <span style="color:var(--warn)">não sincronizada</span>':''}</small></span><span class="b">${brl(v.total)}</span></button>`).join('')}</div>`
-      :`<p class="note">Nenhuma conta fechada neste dia.</p>`}
-    <div class="row" style="margin-top:18px"><button class="btn btn-ghost" onclick="exportCSV()">Exportar CSV do dia</button></div>`;
+    ${periodo==='dia'?`<h2>Contas fechadas</h2>
+    ${vs.length?`<div class="glass list">${vs.map(v => `<button class="li" onclick="showVenda('${v.id}')"><span class="a">${v.tipo==='mesa'?'Mesa '+esc(v.nome):esc(v.nome)}<small>${fmtTime(v.abertaEm)} → ${fmtTime(v.fechadaEm)} · ${PAYL[v.pagamento]}</small></span><span class="b">${brl(v.total)}</span></button>`).join('')}</div>`
+      :`<p class="note">Nenhuma conta fechada neste dia.</p>`}`:''}
+    <div class="row" style="margin-top:18px"><button class="btn btn-ghost" onclick="exportCSV()">Exportar ${periodo==='dia'?'dia':'mês'} para Excel</button></div>`;
+}
+
+/* ================== Entradas (compras / despesas) ================== */
+const DESPESAS = ['Gelo','Gás','Limpeza','Funcionário','Aluguel','Luz / Água','Manutenção','Outros'];
+function renderEntradas(){
+  $('ent-date').textContent = dayLabel();
+  const es = entradas.filter(e=>e.dia===caixaDay).sort((a,b)=>b.ts-a.ts);
+  const tot = es.reduce((s,e)=>s+e.valor,0);
+  $('entradas-body').innerHTML = `
+    <div class="kpi hero glass" style="margin-bottom:12px"><div class="l">Total de entradas do dia</div><div class="v">${brl(tot)}</div>
+      <div class="note" style="margin:6px 0 0">${es.length} registro(s). Compras de produtos já somam no estoque.</div></div>
+    ${es.length?`<div class="glass list">${es.map(e => `<button class="li" onclick="deleteEntrada('${e.id}')"><span class="a">${esc(e.nome)}${e.qtd?` <span class="badge">+${e.qtd} un</span>`:''}<small>${fmtTime(e.ts)} · ${e.pid?'estoque':'despesa'}${e.qtd?` · ${brl(e.valor/e.qtd)}/un`:''}${e.obs?' · '+esc(e.obs):''}</small></span><span class="b">${brl(e.valor)}</span></button>`).join('')}</div>
+      <p class="note">Toque em um registro para excluir (lançou errado).</p>`
+    :`<div class="empty"><div class="big">📦</div><b>Nenhuma entrada neste dia</b><p class="note" style="text-align:center">Toque no <b>+</b> para registrar compra de bebidas, carvão, essência, gelo ou outra despesa.</p></div>`}`;
+}
+let ent = null;
+function openEntrada(){
+  const first = products.find(p=>p.estoque!=null);
+  ent = {tipo:'produto', pid:first?.id||'', qtd:'', valor:'', nome:'', obs:'', dia:caixaDay};
+  renderEnt(); openSheet('sh-ent');
+}
+function readEnt(){
+  if(!$('ent-valor')) return;
+  ent.valor = $('ent-valor').value; ent.obs = $('ent-obs').value; ent.dia = $('ent-dia').value || ent.dia;
+  if(ent.tipo==='produto'){ ent.pid = $('ent-pid').value; ent.qtd = $('ent-qtd').value; } else ent.nome = $('ent-nome').value;
+}
+function renderEnt(){
+  const e = ent, stock = products.filter(p=>p.estoque!=null);
+  const groups = CATS.filter(k=>stock.some(p=>p.cat===k));
+  $('ent-body').innerHTML = `
+    <div class="seg"><button class="${e.tipo==='produto'?'on':''}" onclick="readEnt();ent.tipo='produto';renderEnt()">Produto / insumo</button><button class="${e.tipo==='despesa'?'on':''}" onclick="readEnt();ent.tipo='despesa';renderEnt()">Outra despesa</button></div>
+    ${e.tipo==='produto' ? `
+      <label class="field"><span>O que chegou</span><select class="inp" id="ent-pid">${groups.map(k=>`<optgroup label="${k}">${stock.filter(p=>p.cat===k).map(p=>`<option value="${p.id}" ${p.id===e.pid?'selected':''}>${esc(p.nome)} (tem ${p.estoque})</option>`).join('')}</optgroup>`).join('')}</select></label>
+      <label class="field"><span>Quantidade (unidades)</span><input class="inp" id="ent-qtd" inputmode="numeric" placeholder="Ex.: 24" value="${esc(e.qtd)}"></label>
+      <div class="row" style="margin:-6px 0 14px">${[6,12,24,50,100].map(n=>`<button class="btn btn-ghost btn-sm" onclick="readEnt();ent.qtd=String((parseInt(ent.qtd)||0)+${n});renderEnt()">+${n}</button>`).join('')}</div>`
+    : `
+      <div class="chips" style="flex-wrap:wrap">${DESPESAS.map(d=>`<button class="chip ${e.nome===d?'on':''}" onclick="readEnt();ent.nome='${d}';renderEnt()">${d}</button>`).join('')}</div>
+      <label class="field"><span>Descrição</span><input class="inp" id="ent-nome" placeholder="Ex.: Gelo 10 sacos" value="${esc(e.nome)}"></label>`}
+    <label class="field"><span>Valor total pago (R$)</span><input class="inp" id="ent-valor" inputmode="decimal" placeholder="0,00" value="${esc(e.valor)}" style="font-size:24px;height:60px;font-weight:700"></label>
+    <div class="row">
+      <label class="field"><span>Data</span><input class="inp" type="date" id="ent-dia" value="${e.dia}"></label>
+      <label class="field"><span>Obs. (opcional)</span><input class="inp" id="ent-obs" placeholder="Fornecedor…" value="${esc(e.obs)}"></label>
+    </div>`;
+}
+function saveEntrada(){
+  readEnt(); const e = ent;
+  const valor = money(e.valor);
+  if(valor===null || valor<=0) return toast('Digite o valor pago');
+  const reg = {id:uid(), ts:Date.now(), dia:e.dia, valor, obs:e.obs.trim()};
+  if(e.tipo==='produto'){
+    const p = P(e.pid), q = parseInt(e.qtd);
+    if(!p) return toast('Escolha o produto');
+    if(!(q>0)) return toast('Digite a quantidade');
+    Object.assign(reg, {pid:p.id, nome:p.nome, qtd:q});
+    p.estoque = (p.estoque||0) + q;
+  } else {
+    if(!e.nome.trim()) return toast('Descreva a despesa');
+    reg.nome = e.nome.trim();
+  }
+  entradas.push(reg); caixaDay = e.dia; persist(); haptic(); closeSheets(); render();
+  toast('✅ Entrada registrada · '+brl(valor));
+}
+function deleteEntrada(id){
+  const e = entradas.find(x=>x.id===id); if(!e) return;
+  if(!confirm(`Excluir "${e.nome}" (${brl(e.valor)})?${e.qtd?`\n${e.qtd} un. serão retiradas do estoque.`:''}`)) return;
+  if(e.pid){ const p = P(e.pid); if(p && p.estoque!=null) p.estoque -= e.qtd; }
+  entradas = entradas.filter(x=>x!==e); persist(); renderEntradas(); toast('Entrada excluída');
 }
 function showVenda(id){
   const v = vendas.find(x=>x.id===id); if(!v) return;
@@ -562,11 +676,18 @@ function showVenda(id){
   openSheet('sh-venda');
 }
 function exportCSV(){
-  const vs = vendas.filter(v=>v.dia===caixaDay);
-  const rows = [['dia','aberta','fechada','tipo','comanda','produto','qtd','preco','subtotal_item','pagamento','taxa_servico','desconto','total_comanda']];
-  vs.forEach(v => v.itens.forEach(i => rows.push([v.dia, new Date(v.abertaEm).toLocaleString('pt-BR'), new Date(v.fechadaEm).toLocaleString('pt-BR'), v.tipo, v.nome, i.nome, i.qtd, i.preco.toFixed(2).replace('.',','), (i.qtd*i.preco).toFixed(2).replace('.',','), PAYL[v.pagamento], v.taxa.toFixed(2).replace('.',','), (v.desconto||0).toFixed(2).replace('.',','), v.total.toFixed(2).replace('.',',')])));
+  const n = v => v.toFixed(2).replace('.',',');
+  const rows = [['dia','hora','movimento','descricao','qtd','valor','pagamento_ou_obs']];
+  vendas.filter(v=>inPeriod(v.dia)).forEach(v => {
+    v.itens.forEach(i => rows.push([v.dia, fmtTime(v.fechadaEm), 'Saída', (v.tipo==='mesa'?'Mesa '+v.nome:v.nome)+' · '+i.nome, i.qtd, n(i.qtd*i.preco), PAYL[v.pagamento]]));
+    if(v.taxa) rows.push([v.dia, fmtTime(v.fechadaEm), 'Saída', (v.tipo==='mesa'?'Mesa '+v.nome:v.nome)+' · taxa de serviço', '', n(v.taxa), PAYL[v.pagamento]]);
+    if(v.desconto) rows.push([v.dia, fmtTime(v.fechadaEm), 'Saída', (v.tipo==='mesa'?'Mesa '+v.nome:v.nome)+' · desconto', '', n(-v.desconto), PAYL[v.pagamento]]);
+  });
+  entradas.filter(e=>inPeriod(e.dia)).forEach(e => rows.push([e.dia, fmtTime(e.ts), 'Entrada', e.nome, e.qtd||'', n(e.valor), e.obs||'']));
+  rows.splice(1, 0, ...rows.splice(1).sort((a,b)=>(a[0]+a[1]).localeCompare(b[0]+b[1])));
   const csv = '﻿' + rows.map(r=>r.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(';')).join('\n');
-  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download = 'caixa-'+caixaDay+'.csv'; a.click();
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
+  a.download = 'comanda-ai-'+(periodo==='dia'?caixaDay:caixaDay.slice(0,7))+'.csv'; a.click();
 }
 
 /* ================== Estoque ================== */
@@ -632,7 +753,7 @@ function deleteProduct(){
   persist(); closeSheets(); renderEstoque();
 }
 
-/* ================== Ajustes & Google Planilhas ================== */
+/* ================== Ajustes & dados ================== */
 function renderAjustes(){
   $('ajustes-body').innerHTML = `
     <div class="glass" style="padding:16px;margin-bottom:16px">
@@ -644,62 +765,51 @@ function renderAjustes(){
       <label class="field"><span>Virada do dia (hora)</span><input class="inp" inputmode="numeric" value="${cfg.virada}" onchange="cfg.virada=Math.min(12,Math.max(0,parseInt(this.value)||0));persist()"></label>
       <p class="note" style="margin-bottom:0">Vendas antes desse horário contam no dia anterior (ex.: 6 → a madrugada de sábado entra no caixa de sexta).</p>
     </div>
-    <h2>Google Planilhas</h2>
+    <h2>Seus dados</h2>
     <div class="glass" style="padding:16px">
-      <p class="note" style="margin-top:0"><span class="sync-dot ${!cfg.url?'':queue.length?'pend':'ok'}"></span>${!cfg.url?'Não conectado — o app funciona 100% offline no aparelho.':queue.length?queue.length+' conta(s) aguardando envio.':'Tudo sincronizado.'}</p>
-      <label class="field"><span>URL do Apps Script (/exec)</span><input class="inp" placeholder="https://script.google.com/macros/s/.../exec" value="${esc(cfg.url)}" onchange="cfg.url=this.value.trim();persist();renderAjustes()"></label>
-      <div class="row"><button class="btn btn-ghost" onclick="syncPull()">⬇︎ Baixar produtos</button><button class="btn btn-ghost" onclick="syncPush(true)">⬆︎ Enviar vendas</button></div>
-      <button class="btn btn-ghost btn-block" style="margin-top:10px" onclick="syncSetup()">Enviar catálogo atual para a planilha</button>
-    </div>
-    <h2>Dados</h2>
-    <div class="glass" style="padding:16px">
-      <button class="btn btn-ghost btn-block" onclick="backup()">Baixar backup (JSON)</button>
+      <p class="note" style="margin-top:0">Tudo fica guardado <b>neste aparelho</b>, sem internet e sem planilha: ${vendas.length} conta(s) fechada(s) e ${entradas.length} entrada(s).
+      ${cfg.lastBackup?`Último backup: <b>${new Date(cfg.lastBackup).toLocaleDateString('pt-BR')}</b>.`:'<span style="color:var(--warn)">Nenhum backup feito ainda.</span>'}</p>
+      <p class="note">Faça backup uma vez por semana e mande o arquivo para o seu WhatsApp ou e-mail. Se trocar ou perder o celular, é só restaurar.</p>
+      <button class="btn btn-primary btn-block" onclick="backup()">Fazer backup agora</button>
+      <button class="btn btn-ghost btn-block" style="margin-top:10px" onclick="$('restore-file').click()">Restaurar backup</button>
+      <input type="file" id="restore-file" accept=".json,application/json" hidden onchange="restore(this.files[0])">
       <button class="btn btn-danger btn-block" style="margin-top:10px" onclick="resetAll()">Apagar tudo e recomeçar</button>
     </div>
-    <p class="note" style="text-align:center;margin-top:24px">Comanda Aí · versão de teste 0.2</p>`;
+    <p class="note" style="text-align:center;margin-top:24px">Comanda Aí · versão de teste 0.3</p>`;
 }
-async function api(body){
-  if(!cfg.url) throw new Error('Configure a URL da planilha em Ajustes');
-  const r = body ? await fetch(cfg.url,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)}) : await fetch(cfg.url+'?action=produtos');
-  const j = await r.json(); if(!j.ok) throw new Error(j.error||'Erro na planilha'); return j;
+async function backup(){
+  const data = JSON.stringify({app:'comanda-ai', versao:3, em:new Date().toISOString(), products, open, vendas, entradas, cfg}, null, 2);
+  const name = 'comanda-ai-backup-'+opDay(Date.now())+'.json';
+  const file = new File([data], name, {type:'application/json'});
+  cfg.lastBackup = Date.now(); persist();
+  // no celular abre o "Compartilhar" (WhatsApp, e-mail, Drive…); no computador baixa o arquivo
+  try{ if(navigator.canShare && navigator.canShare({files:[file]})){ await navigator.share({files:[file], title:'Backup Comanda Aí'}); renderAjustes(); return; } }catch(e){ if(e.name==='AbortError') return; }
+  const a = document.createElement('a'); a.href = URL.createObjectURL(file); a.download = name; a.click(); renderAjustes();
 }
-let pushing = false;
-async function syncPush(manual){
-  if(!cfg.url){ if(manual) toast('Configure a URL da planilha'); return; }
-  if(pushing || !queue.length){ if(manual) toast(queue.length?'Enviando…':'Nada para enviar'); return; }
-  pushing = true;
-  try{
-    const batch = vendas.filter(v=>queue.includes(v.id));
-    await api({action:'vendas', vendas:batch});
-    queue = queue.filter(id=>!batch.some(v=>v.id===id)); persist();
-    if(manual) toast('⬆︎ '+batch.length+' conta(s) enviadas');
-  }catch(e){ if(manual) toast('Falhou: '+e.message); }
-  pushing = false; if(page==='ajustes') renderAjustes();
-}
-async function syncPull(){
-  try{
-    await syncPush();
-    const j = await api(); if(!j.produtos?.length) return toast('Planilha sem produtos');
-    products = j.produtos; persist(); toast('⬇︎ '+products.length+' produtos atualizados'); render();
-  }catch(e){ toast('Falhou: '+e.message); }
-}
-async function syncSetup(){
-  if(!confirm('Isso substitui a aba Produtos da planilha pelo catálogo deste aparelho. Continuar?')) return;
-  try{ await api({action:'setup', produtos:products}); toast('Catálogo enviado para a planilha'); }catch(e){ toast('Falhou: '+e.message); }
-}
-function backup(){
-  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([JSON.stringify({products,open,vendas,cfg},null,2)],{type:'application/json'})); a.download='comanda-ai-backup.json'; a.click();
+function restore(file){
+  if(!file) return;
+  const r = new FileReader();
+  r.onload = () => {
+    try{
+      const d = JSON.parse(r.result);
+      if(!Array.isArray(d.products) || !Array.isArray(d.vendas)) throw new Error('arquivo inválido');
+      if(!confirm(`Restaurar backup de ${d.em?new Date(d.em).toLocaleString('pt-BR'):'data desconhecida'}?\nIsso substitui os dados atuais deste aparelho.`)) return;
+      products = d.products; open = d.open||[]; vendas = d.vendas; entradas = d.entradas||[]; cfg = Object.assign(cfg, d.cfg||{}); queue = [];
+      persist(); render(); toast('Backup restaurado');
+    }catch(e){ toast('Não consegui ler esse arquivo'); }
+  };
+  r.readAsText(file);
 }
 function resetAll(){
-  if(!confirm('Apagar TODAS as comandas, vendas e produtos deste aparelho?')) return;
+  if(!confirm('Apagar TODAS as comandas, vendas, entradas e produtos deste aparelho?')) return;
   Object.values(K).forEach(k=>localStorage.removeItem(k)); location.reload();
 }
 
 /* ================== Boot ================== */
 render();
 setInterval(()=>{ if(page==='comandas' && !current) renderComandas(); }, 60000);
-window.addEventListener('online', ()=>syncPush());
-setInterval(()=>syncPush(), 120000);
+// pede ao navegador para não apagar os dados sozinho (importante no iPhone)
+try{ navigator.storage && navigator.storage.persist && navigator.storage.persist(); }catch(e){}
 if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script>
 </body>

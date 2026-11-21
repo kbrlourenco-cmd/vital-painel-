@@ -1,33 +1,25 @@
-# Comanda Aí — versão de teste 0.2
+# Comanda Aí — versão de teste 0.3
 
-**Modelo de uso:** um único aparelho fica no caixa e concentra todas as comandas.
+App de caixa para bares que servem bebidas e **narguilé**. Roda em **um único aparelho** (o do caixa), funciona sem internet e **guarda tudo no próprio aparelho**. Não precisa de planilha.
 
-App de comandas para bares que servem só bebidas (cerveja, destilados, energéticos, refrigerantes, sucos, águas) e **narguilé**, com baixa automática de insumos (ex.: 1 narguilé = 3 carvões + 1 essência).
+## As 5 abas
+| Aba | Para que serve |
+|---|---|
+| **Saídas** | Comandas por mesa ou nome. Lança as bebidas, edita preço por item, fecha a conta (10% opcional, desconto, divide, forma de pagamento). Cada conta fechada vira uma saída do dia, com data e hora. |
+| **Entradas** | Registra o que entrou e quanto custou: produtos e insumos (bebidas, carvão, essência), que **somam no estoque**, ou outras despesas (gelo, gás, funcionário, aluguel…). |
+| **Resumo** | Dia ou mês: **Saídas − Entradas = Resultado**, total por forma de pagamento, mais vendidos, descontos e dia a dia do mês. Exporta para Excel (CSV) se o contador pedir. |
+| **Estoque** | Atualizado sozinho: as vendas tiram, as entradas somam. O narguilé tira 3 carvões e 1 essência. Alerta de mínimo. |
+| **Ajustes** | Nº de mesas, % de serviço, virada do dia (padrão 6h), **backup e restauração**. |
 
-## O que já faz
-- **Comandas** por mesa (grade numérica) ou por nome do cliente.
-- **Lançar consumo** com um toque por produto, +/− por item e indicador de estoque.
-- **Preço editável por item**: toque no item da comanda para mudar o preço (atalhos −10%, −20% e Cortesia). O preço de tabela fica registrado para comparação.
-- **Fechar conta**: 10% de serviço desligado por padrão (liga na hora, se quiser), desconto/abatimento em R$, divisão por pessoas e forma de pagamento (crédito/débito/pix/dinheiro). Depois de passar na maquininha, toque em “Cobrado na maquininha ✓”.
-- **Caixa do dia**: faturamento, total de descontos concedidos, ticket médio, total por forma de pagamento, mais vendidos, lista de contas com hora de abertura e fechamento, exportação em CSV.
-  - *Virada do dia* (padrão 6h): o que é vendido de madrugada conta no caixa da noite anterior.
-- **Estoque**: baixa automática no fechamento, alerta de mínimo, entrada rápida (+6/+12/+24), produtos que consomem insumos.
-- **Funciona offline** (PWA). Os dados ficam no aparelho e são enviados à planilha quando houver internet.
-- **Google Planilhas (opcional)**: o dono edita preços e estoque na planilha. As vendas, os itens e as movimentações de estoque chegam lá automaticamente. Veja `apps-script/Code.gs`.
+## Onde os dados ficam
+No armazenamento do navegador do próprio aparelho. O app pede ao sistema que não apague esses dados.
+- **Instale na tela de início** (iPhone: Safari → Compartilhar → "Adicionar à Tela de Início"; Android: Chrome → "Instalar app"). No iPhone isso evita que o Safari limpe os dados.
+- **Backup semanal**: Ajustes → "Fazer backup agora" abre o compartilhar do celular para mandar o arquivo por WhatsApp, e-mail ou Drive. Para recuperar: "Restaurar backup".
 
-## Testar agora
-Abra `index.html` em um servidor estático (ex.: `python3 -m http.server`) ou publique em hospedagem gratuita:
+## Publicar (grátis)
+GitHub Pages, Cloudflare Pages ou Netlify. É só publicar esta pasta.
 
-| Opção | Custo | Observação |
-|---|---|---|
-| **GitHub Pages** | grátis | Settings → Pages → branch e pasta. Ideal para o teste. |
-| **Cloudflare Pages** | grátis | Banda ilimitada e domínio próprio fácil. |
-| **Netlify / Vercel** | grátis | Basta arrastar a pasta. |
-| **Google Apps Script** (back-end) | grátis | Cotas sobram para um bar. |
-
-No iPhone: Safari → Compartilhar → “Adicionar à Tela de Início”. No Android: Chrome → “Instalar app”.
-
-## Limitações conhecidas (v0.1)
-- Um aparelho só (o do caixa). Os dados ficam nele; faça backup em Ajustes ou conecte a planilha.
-- Não há login nem perfis (garçom × dono).
+## Limitações (v0.3)
+- Um aparelho só. Sem backup, perder o aparelho é perder os dados.
+- Não há login.
 - Não emite cupom fiscal (NFC-e).
