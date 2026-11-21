@@ -596,7 +596,8 @@ function renderCaixa(){
     ${periodo==='dia'?`<h2>Contas fechadas</h2>
     ${vs.length?`<div class="glass list">${vs.map(v => `<button class="li" onclick="showVenda('${v.id}')"><span class="a">${v.tipo==='mesa'?'Mesa '+esc(v.nome):esc(v.nome)}<small>${fmtTime(v.abertaEm)} → ${fmtTime(v.fechadaEm)} · ${PAYL[v.pagamento]}</small></span><span class="b">${brl(v.total)}</span></button>`).join('')}</div>`
       :`<p class="note">Nenhuma conta fechada neste dia.</p>`}`:''}
-    <div class="row" style="margin-top:18px"><button class="btn btn-ghost" onclick="exportCSV()">Exportar ${periodo==='dia'?'dia':'mês'} para Excel</button></div>`;
+    <p class="note" style="margin-top:18px">Quer ver este resumo do seu celular, de casa? Isso vem no <b>Comanda Aí Pro</b> (veja em Ajustes).</p>
+    <div class="row" style="margin-top:10px"><button class="btn btn-ghost" onclick="exportCSV()">Exportar ${periodo==='dia'?'dia':'mês'} para Excel</button></div>`;
 }
 
 /* ================== Entradas (compras / despesas) ================== */
@@ -765,6 +766,15 @@ function renderAjustes(){
       <label class="field"><span>Virada do dia (hora)</span><input class="inp" inputmode="numeric" value="${cfg.virada}" onchange="cfg.virada=Math.min(12,Math.max(0,parseInt(this.value)||0));persist()"></label>
       <p class="note" style="margin-bottom:0">Vendas antes desse horário contam no dia anterior (ex.: 6 → a madrugada de sábado entra no caixa de sexta).</p>
     </div>
+    <h2>Comanda Aí Pro <span class="badge" style="vertical-align:middle;background:var(--grad);color:#05060a">em breve</span></h2>
+    <div class="glass pro" style="padding:16px">
+      <p class="note" style="margin-top:0">Tudo desta versão continua grátis. O Pro é para quem quer acompanhar o bar de longe:</p>
+      <div class="li"><span class="a">📱 Caixa ao vivo no celular do dono<small>Veja vendas e resultado de casa, na hora</small></span></div>
+      <div class="li"><span class="a">☁️ Backup automático na nuvem<small>Trocou ou perdeu o aparelho, nada se perde</small></span></div>
+      <div class="li"><span class="a">📊 Relatórios semanais e mensais<small>Lucro por produto, horários de pico, comparação entre meses</small></span></div>
+      <div class="li"><span class="a">🔔 Alertas no WhatsApp<small>Estoque baixo, fechamento do dia, descontos fora do normal</small></span></div>
+      <div class="li"><span class="a">👥 Vários aparelhos e garçons<small>Cada um lança na sua comanda, tudo cai no mesmo caixa</small></span></div>
+    </div>
     <h2>Seus dados</h2>
     <div class="glass" style="padding:16px">
       <p class="note" style="margin-top:0">Tudo fica guardado <b>neste aparelho</b>, sem internet e sem planilha: ${vendas.length} conta(s) fechada(s) e ${entradas.length} entrada(s).
@@ -775,7 +785,7 @@ function renderAjustes(){
       <input type="file" id="restore-file" accept=".json,application/json" hidden onchange="restore(this.files[0])">
       <button class="btn btn-danger btn-block" style="margin-top:10px" onclick="resetAll()">Apagar tudo e recomeçar</button>
     </div>
-    <p class="note" style="text-align:center;margin-top:24px">Comanda Aí · versão de teste 0.3</p>`;
+    <p class="note" style="text-align:center;margin-top:24px">Comanda Aí · versão gratuita 0.3</p>`;
 }
 async function backup(){
   const data = JSON.stringify({app:'comanda-ai', versao:3, em:new Date().toISOString(), products, open, vendas, entradas, cfg}, null, 2);
