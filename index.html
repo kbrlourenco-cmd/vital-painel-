@@ -75,7 +75,7 @@
  .chat-linha button{background:#132A44;color:#fff;border:none;border-radius:9px;padding:0 16px;font-weight:600;cursor:pointer;}
  .chat-linha button:disabled{background:#AEB8C2;cursor:default;}
 </style></head><body><div class="wrap">
-<header><h1>Bom dia, Kleber! &#128075;</h1><p>Quinta, 26 de novembro</p></header>
+<header><h1>Bom dia, Kleber! &#128075;</h1><p>Sexta, 27 de novembro</p></header>
 
 <div class="tabs">
   <button class="tab on" data-t="hoje">Hoje</button>
@@ -90,15 +90,15 @@
     <div class="corpo">
       <div class="gauge"><svg width="104" height="104" viewBox="0 0 96 96">
 <circle cx="48" cy="48" r="42" fill="none" stroke="#EDECE7" stroke-width="9"/>
-<circle cx="48" cy="48" r="42" fill="none" stroke="#4E7D1B" stroke-width="9"
- stroke-dasharray="263.9" stroke-dashoffset="66.0"
+<circle cx="48" cy="48" r="42" fill="none" stroke="#6E6E68" stroke-width="9"
+ stroke-dasharray="263.9" stroke-dashoffset="263.9"
  stroke-linecap="round" transform="rotate(-90 48 48)"/>
-<text x="48" y="52" text-anchor="middle" font-size="24" font-weight="700" fill="#4E7D1B">75</text>
+<text x="48" y="52" text-anchor="middle" font-size="24" font-weight="700" fill="#6E6E68">—</text>
 <text x="48" y="68" text-anchor="middle" font-size="10" fill="#6E6E68">/100</text>
 </svg></div>
       <div>
-        <div class="label" style="color:#4E7D1B;">Pode treinar</div>
-        <div class="desc">Corpo recuperado. Se tiver treino forte no plano, ta liberado. Motivo: sono mediano na ultima noite (nota 75). (+75% vs sua media dos ultimos 7 dias.)</div>
+        <div class="label" style="color:#6E6E68;">Sem dados</div>
+        <div class="desc">Sem leitura do Garmin hoje.</div>
       </div>
     </div>
     <a href="#sinais" class="link">Ver detalhes &rarr;</a>
@@ -116,21 +116,21 @@
   
 
   <div class="sect" id="sinais">Principais sinais</div>
-  <div class="grid"><div class="c"><p class="k">Sono</p><p class="v">75</p><p class="s" style="color:#4E7D1B;font-weight:600;">6h25 dormidas · +17% vs sua media</p></div><div class="c"><p class="k">Equilibrio do coracao</p><p class="v">Equilibrado</p><p class="s" style="color:#4E7D1B;font-weight:600;">40ms · +14% vs media</p></div><div class="c"><p class="k">Coracao em repouso</p><p class="v">57 bpm</p><p class="s" style="color:#4E7D1B;font-weight:600;">-2 bpm vs media</p></div><div class="c"><p class="k">Bateria do corpo</p><p class="v">73%</p><p class="s" style="color:#4E7D1B;font-weight:600;">Alta · +17% vs sua media</p></div></div>
-  <div class="sect">Fases do sono</div><div class="box"><div class="fase-sono"><div class="fase-topo"><span>Profundo</span><span>1h17</span></div><div class="fase-barra"><div class="fase-fill" style="width:20%;"></div></div></div><div class="fase-sono"><div class="fase-topo"><span>Leve</span><span>4h26</span></div><div class="fase-barra"><div class="fase-fill" style="width:69%;"></div></div></div><div class="fase-sono"><div class="fase-topo"><span>REM</span><span>0h42</span></div><div class="fase-barra"><div class="fase-fill" style="width:11%;"></div></div></div><div class="fase-sono"><div class="fase-topo"><span>Acordado</span><span>0h10</span></div><div class="fase-barra"><div class="fase-fill" style="width:3%;"></div></div></div></div>
+  <div class="grid"><div class="c"><p class="k">Sono</p><p class="v">Sem dados</p><p class="s">ainda nao sincronizado</p></div><div class="c"><p class="k">Equilibrio do coracao</p><p class="v">—</p><p class="s"></p></div><div class="c"><p class="k">Coracao em repouso</p><p class="v">57 bpm</p><p class="s" style="color:#4E7D1B;font-weight:600;">-1 bpm vs media</p></div><div class="c"><p class="k">Bateria do corpo</p><p class="v">87%</p><p class="s" style="color:#4E7D1B;font-weight:600;">Alta · +43% vs sua media</p></div></div>
+  
   <div class="sect">Treino de amanha</div>
-  <div class="card-treino">
+  <div class="card-treino clicavel" data-toggle="det-amanha">
     <span class="icone">&#127939;</span>
     <div>
-      <div class="nome">Sem treino planejado</div>
-      <div class="sub">Nada agendado no Garmin pra amanha</div>
+      <div class="nome">28/11 Sab - Corrida 12 Km</div>
+      <div class="sub">12,0 km · intervalado - detalhe abaixo</div>
     </div>
-    
+    <span class="seta">&#9660;</span>
   </div>
-  
+  <div id="det-amanha" class="hide"><div class="sect" style="margin-top:8px;font-size:12px;">Detalhe do treino</div><div class="box"><div class="row"><span class="rk">Correr 12,0 km</span></div></div></div>
 
   <div class="sect">Essa semana</div>
-  <div class="box"><div class="row"><span class="rk">Sabado 28/11</span><span class="rv">28/11 Sab - Corrida 12 Km</span></div></div>
+  <div class="box"><div class="row"><span class="rk">Sem mais treinos agendados essa semana</span></div></div>
 
   <div class="sect">Hoje &amp; objetivo</div>
   <div class="mini-card">
@@ -144,9 +144,9 @@
 </section>
 
 <section data-p="pos" class="hide">
-  <div class="sect">Treinos de 25/11</div>
-  <div class="note">Nesse dia: sono mediano naquela noite (nota 79).</div>
-  <div class="box" style="margin-bottom:10px;"><div class="row"><span class="rk">08:22 &middot; Corrida</span><span class="rv">0,9 km · 6:00/km · Ritmo recorde</span></div><div class="note">Seu melhor ritmo ja registrado perto de 1 km (sua media de antes: 6:22/km).</div><div class="row3"><span>1 km</span><span>6:00/km</span><span>135 bpm</span></div><div class="grid" style="margin:8px 0;"><div class="c"><p class="k">FC media</p><p class="v">135 bpm</p><p class="s"></p></div><div class="c"><p class="k">FC maxima</p><p class="v">153 bpm</p><p class="s"></p></div><div class="c"><p class="k">Tempo total</p><p class="v">5:41</p><p class="s"></p></div><div class="c"><p class="k">Calorias</p><p class="v">71</p><p class="s"></p></div></div></div><div class="box" style="margin-bottom:10px;"><div class="row"><span class="rk">08:31 &middot; Corrida</span><span class="rv">6,0 km · 6:05/km · Dentro do normal</span></div><div class="note">Ritmo dentro do que voce costuma fazer perto de 6 km (media: 6:13/km).</div><div class="row3"><span>1 km</span><span>16:26/km</span><span>121 bpm</span></div><div class="row3"><span>2 km</span><span>5:43/km</span><span>143 bpm</span></div><div class="row3"><span>3 km</span><span>5:05/km</span><span>158 bpm</span></div><div class="row3"><span>4 km</span><span>7:19/km</span><span>151 bpm</span></div><div class="row3"><span>5 km</span><span>5:21/km</span><span>158 bpm</span></div><div class="row3"><span>6 km</span><span>7:02/km</span><span>152 bpm</span></div><div class="row3"><span>7 km</span><span>5:34/km</span><span>155 bpm</span></div><div class="row3"><span>8 km</span><span>6:49/km</span><span>152 bpm</span></div><div class="row3"><span>9 km</span><span>5:36/km</span><span>170 bpm</span></div><div class="row3"><span>10 km</span><span>7:31/km</span><span>162 bpm</span></div><div class="row3"><span>11 km</span><span>5:34/km</span><span>167 bpm</span></div><div class="row3"><span>12 km</span><span>7:24/km</span><span>155 bpm</span></div><div class="row3"><span>13 km</span><span>5:36/km</span><span>168 bpm</span></div><div class="row3"><span>14 km</span><span>9:37/km</span><span>168 bpm</span></div><div class="grid" style="margin:8px 0;"><div class="c"><p class="k">FC media</p><p class="v">158 bpm</p><p class="s"></p></div><div class="c"><p class="k">FC maxima</p><p class="v">176 bpm</p><p class="s"></p></div><div class="c"><p class="k">Tempo total</p><p class="v">36:36</p><p class="s"></p></div><div class="c"><p class="k">Calorias</p><p class="v">506</p><p class="s"></p></div></div></div>
+  <div class="sect">Treinos de 26/11</div>
+  <div class="note">Nesse dia: sono mediano naquela noite (nota 75).</div>
+  <div class="box" style="margin-bottom:10px;"><div class="row"><span class="rk">06:44 &middot; Musculacao</span><span class="rv">45:54</span></div><div class="grid" style="margin:8px 0;"><div class="c"><p class="k">FC media</p><p class="v">107 bpm</p><p class="s"></p></div><div class="c"><p class="k">Calorias</p><p class="v">277</p><p class="s"></p></div></div></div>
 
   <div class="sect">Meta</div>
   <div class="goal">
@@ -155,7 +155,7 @@
     <div class="s">Semana 13 de 13 do ciclo</div>
   </div>
   <div class="sect">Previsao de tempo (Garmin)</div>
-  <div class="grid"><div class="c"><p class="k">5 km</p><p class="v">23:36</p><p class="s"></p></div><div class="c"><p class="k">10 km</p><p class="v">50:02</p><p class="s"></p></div><div class="c"><p class="k">Meia</p><p class="v">1:53:13</p><p class="s"></p></div><div class="c"><p class="k">Maratona</p><p class="v">4:13:56</p><p class="s"></p></div></div>
+  <div class="grid"><div class="c"><p class="k">5 km</p><p class="v">23:36</p><p class="s"></p></div><div class="c"><p class="k">10 km</p><p class="v">50:04</p><p class="s"></p></div><div class="c"><p class="k">Meia</p><p class="v">1:53:18</p><p class="s"></p></div><div class="c"><p class="k">Maratona</p><p class="v">4:14:04</p><p class="s"></p></div></div>
 
   <div class="sect">Historico</div>
   <div class="box"><div class="row"><span class="rk">5 km</span><span class="rv">26:28</span></div><div class="row"><span class="rk">1 km</span><span class="rv">5:00</span></div><div class="row"><span class="rk">1 milha</span><span class="rv">8:03</span></div></div>
@@ -177,7 +177,7 @@
   </div>
 </section>
 
-<div class="foot">Atualizado automaticamente em 26/11 as 06:30</div>
+<div class="foot">Atualizado automaticamente em 27/11 as 06:30</div>
 </div>
 <script>
  var tabs=document.querySelectorAll('.tab'),ps=document.querySelectorAll('[data-p]');
@@ -192,7 +192,7 @@
 </script>
 <script>
 (function() {
-  var dadosRel = {"labels": ["13/11", "14/11", "15/11", "16/11", "17/11", "18/11", "19/11", "20/11", "21/11", "22/11", "23/11", "24/11", "25/11", "26/11"], "minutos_por_esporte": {"Corrida": [0.0, 0.0, 128.9572998046875, 0.0, 0.0, 42.476200358072916, 0.0, 0.0, 36.43634847005208, 46.14378458658854, 33.9989990234375, 0.0, 42.27506815592448, 0.0], "Forca": [51.470402018229166, 0.0, 0.0, 0.0, 0.0, 0.0, 46.05675048828125, 50.307918294270834, 0.0, 0.0, 0.0, 65.63363444010416, 0.0, 0.0], "Ciclismo": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "Natacao": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 16.936116536458332, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "Outro": [0.0, 0.0, 0.0, 0.0, 52.825032552083336, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 33.356317138671876, 0.0, 0.0]}, "descanso": [false, true, false, true, false, false, false, false, false, false, false, false, false, true]};
+  var dadosRel = {"labels": ["14/11", "15/11", "16/11", "17/11", "18/11", "19/11", "20/11", "21/11", "22/11", "23/11", "24/11", "25/11", "26/11", "27/11"], "minutos_por_esporte": {"Corrida": [0.0, 128.9572998046875, 0.0, 0.0, 42.476200358072916, 0.0, 0.0, 36.43634847005208, 46.14378458658854, 33.9989990234375, 0.0, 42.27506815592448, 0.0, 0.0], "Forca": [0.0, 0.0, 0.0, 0.0, 0.0, 46.05675048828125, 50.307918294270834, 0.0, 0.0, 0.0, 65.63363444010416, 0.0, 45.90778401692708, 0.0], "Ciclismo": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "Natacao": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 16.936116536458332, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "Outro": [0.0, 0.0, 0.0, 52.825032552083336, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 33.356317138671876, 0.0, 0.0, 0.0]}, "descanso": [true, false, true, false, false, false, false, false, false, false, false, false, false, true]};
   var coresRel = {"Corrida": "#0072B2", "Forca": "#D55E00", "Ciclismo": "#009E73", "Natacao": "#56B4E9", "Outro": "#CC79A7"};
   var CORDESCANSO = "#B9B6AF";
 
